@@ -1,0 +1,94 @@
+{
+  "main": {
+    "id": "d876f799515f67ba",
+    "type": "split",
+    "children": [
+      {
+        "id": "df858d68ae96a1f7",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "lorem-ipsum.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "44218a3a2cf49400",
+    "type": "split",
+    "children": [
+      {
+        "id": "f7eef08a174ac6ad",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1f48d30e32c79088",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "29d11abcda88a316",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d90801c7e4cb7a42",
+    "type": "split",
+    "children": [
+      {
+        "id": "314bbc300cac28c2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "314e24e1a55cf156",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "lorem-ipsum.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "df858d68ae96a1f7",
+  "lastOpenFiles": [
+    "lorem-ipsum.md"
+  ]
+}

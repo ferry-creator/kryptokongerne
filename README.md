@@ -5,4 +5,4 @@ ___
 
 This repo is one big shitpost 💩
 
-![](blog/static/logo.svg)
+![|800](blog/static/logo.svg)

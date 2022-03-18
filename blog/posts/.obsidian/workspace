@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "df858d68ae96a1f7",
+        "id": "1ad509e3afdaecf0",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "lorem-ipsum.md",
+            "file": "up-and-running.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "lorem-ipsum.md",
+                "file": "up-and-running.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -87,8 +87,10 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "df858d68ae96a1f7",
+  "active": "1ad509e3afdaecf0",
   "lastOpenFiles": [
+    "up-and-running.md",
+    "node_mcu_graphic.webp",
     "lorem-ipsum.md"
   ]
 }

@@ -3,8 +3,7 @@ title: Getting up and running
 date: 2022-03-18
 ---
 We spent the day configuring Node-RED, MQTT, and deployment to MS Azure.
-![](./et-billede.png)
-
+![](./node_mcu_graphic.webp)
 
 Node-red & Azure setup
 Brainstorming

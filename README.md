@@ -4,3 +4,5 @@
 ___
 
 This repo is one big shitpost 💩
+
+![](blog/static/logo.svg)

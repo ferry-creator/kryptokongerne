@@ -20,7 +20,7 @@
 <div class="flex flex-col min-h-screen">
   <div class="mx-auto flex flex-col flex-grow w-full max-w-4xl">
     <div class="flex h-24 px-4 py-2 justify-between items-center">
-      <a href="/" class="h-full">
+      <a href="/" class="h-full pr-4">
         {#if mounted}
           <div class="h-full" in:fly="{{ y: 10, duration: 500 }}">
             {#if prefersLight}

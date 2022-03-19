@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "up-and-running.md",
+            "file": "up-and-running/index.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "up-and-running.md",
+                "file": "up-and-running/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,8 +89,12 @@
   },
   "active": "1ad509e3afdaecf0",
   "lastOpenFiles": [
+    "up-and-running/index.md",
+    "about/index.md",
+    "chindogu-art-of-stupid/index.md",
+    "getting-started/index.md",
     "up-and-running.md",
-    "node_mcu_graphic.webp",
+    "up-and-running/node_mcu_graphic.webp",
     "lorem-ipsum.md"
   ]
 }

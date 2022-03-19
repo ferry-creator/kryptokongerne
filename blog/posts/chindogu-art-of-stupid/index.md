@@ -2,7 +2,6 @@
 title: Chindōgu - The Art of Stupid
 date: 2022-03-11
 ---
-#wow!
 Most people dislike **cold rainy weather**. Are we loosing touch with nature by sheltering?
 ![Umbrella in rain](./umbrella.webp)
 
@@ -13,7 +12,7 @@ We want to create an `IoT` solution that allows everyday people like you to expe
 Using our exciting new rain technology 💦 ***Real-Splash*** ™ 💦 , we'll ensure you stay fresh and hydrated throughout your day in the open office treadmill.
 
 ## Project Overview
-The idea is to simulate rain indoors whenever it's raining outdoors. This will not only notify users indoors to stay inside, it will also provie them a more authentic and natural experience.
+The idea is to simulate rain indoors whenever it's raining outdoors. This will not only notify users indoors to stay inside, it will also provide them a more authentic and natural experience.
 * Rain sensor module placed outdoors
 * Indoor rain experience (powered by ***Real-Splash*** ™)
 * MQTT between rain sensor and indoor rain experience

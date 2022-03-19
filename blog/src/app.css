@@ -8,7 +8,10 @@
 
 .prose img {
   @apply rounded-md shadow-md dark:shadow-slate-900;
-  /* @apply w-11/12; */
+  @apply w-10/12;
+}
+
+.prose p:first-child img {
   @apply w-full;
 }
 

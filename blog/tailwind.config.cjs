@@ -34,7 +34,7 @@ module.exports = {
                 borderColor: theme('colors.slate.300')
               },
               ul: {
-                marginTop: '0 !important',
+                marginTop: '-15px !important',
                 marginBottom: '0 !important'
               },
               li: {

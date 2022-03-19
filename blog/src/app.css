@@ -8,6 +8,8 @@
 
 .prose img {
   @apply rounded-md shadow-md dark:shadow-slate-900;
+  /* @apply w-11/12; */
+  @apply w-full;
 }
 
 .prose video {

@@ -11,7 +11,7 @@ as a service and hooked it up in node-RED using the MQTT-out node.
 
 In that way, node-RED is acting as a MQTT client hosted on Azure, and then we can add as many devices / topics with MQTT clients as needed - e.g. `ESP32` chips such as the Node MCU.
 ![](./MQTT.png)
-On the diagram 4 topics are shown. We will only be needing 2, but it still gets the point across - we use Node-RED to create flows, which control how we interact with the MQTT devices.
+This diagram shows our setup in a generalised fashion. We use Node-RED to create flows, which control how we interact with the MQTT devices and topics. We will be needing 2 topics, one for each Node MCU / `ESP32` module. Everything goes back and forth between the MQTT broker, which is run by a 3rd party service, [maqiatto](https://maqiatto.com/).
 
 ## Homework
 We decided some group members should prepare some work before next friday.

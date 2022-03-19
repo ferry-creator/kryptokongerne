@@ -2,6 +2,7 @@
 title: Chindōgu - The Art of Stupid
 date: 2022-03-11
 ---
+#wow!
 Most people dislike **cold rainy weather**. Are we loosing touch with nature by sheltering?
 ![Umbrella in rain](./umbrella.webp)
 

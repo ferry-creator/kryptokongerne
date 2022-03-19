@@ -8,9 +8,9 @@
   %svelte.head%
   <script>
     const storageValue = JSON.parse(localStorage.getItem('prefersLight'))
-    const prefersLight = storageValue
-      ? Boolean(storageValue)
-      : window?.matchMedia('(prefers-color-scheme: light)').matches
+    const prefersLight = storageValue == null
+      ? window?.matchMedia('(prefers-color-scheme: light)').matches
+      : storageValue
 
     localStorage.setItem('prefersLight', prefersLight)
 

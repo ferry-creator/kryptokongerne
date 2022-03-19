@@ -5,9 +5,9 @@
 /**
  * Used for the header of the page and in SEO
  */
-export const name = 'SvelteKit Blog Template' // replace with your name
+export const name = 'Krypto Kongerne' // replace with your name
 
 /**
  * Used for SEO in /posts/[slug]
  */
-export const website = 'https://yourdomain.com'
+export const website = 'https://kryptokongerne.vercel.app/'

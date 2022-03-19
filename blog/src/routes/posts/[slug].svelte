@@ -121,21 +121,21 @@
 {#if previous || next}
   <hr />
   <div class="grid gap-8 grid-cols-1 sm:grid-cols-2">
-    {#if previous}
+    {#if next}
       <div class="flex flex-col">
-        <h6 class="not-prose post-preview-label">Previous Post</h6>
+        <h6 class="not-prose post-preview-label">Next Post</h6>
         <div class="flex-1 post-preview">
-          <PostPreview post={previous} small />
+          <PostPreview post={next} small />
         </div>
       </div>
     {:else}
       <div />
     {/if}
-    {#if next}
+    {#if previous}
       <div class="flex flex-col">
-        <h6 class="not-prose post-preview-label flex justify-end">Next Post</h6>
+        <h6 class="not-prose post-preview-label flex justify-end">Previous Post</h6>
         <div class="flex-1 post-preview">
-          <PostPreview post={next} small />
+          <PostPreview post={previous} small />
         </div>
       </div>
     {/if}

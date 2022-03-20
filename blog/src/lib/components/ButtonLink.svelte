@@ -4,6 +4,7 @@
   export let href
   export let raised = true
   export let size = 'medium' // small, medium, or large
+  export let blank = false
 
   let className = ''
 
@@ -14,6 +15,7 @@
   <a
     {...$$restProps}
     {href}
+    target={blank ? '_blank' : '_self'}
     class={'block text-slate-800 dark:text-slate-200 dark:text-opacity-90 rounded-md no-underline ' +
       className}
     class:small={size === 'small'}

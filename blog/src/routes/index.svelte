@@ -41,11 +41,11 @@
     {#if mounted}
       <h1 class="text-center">
         <span class="text-6xl text-transparent bg-clip-text GRADIENT_DANCE">
-          <span class="text-4xl" in:typewriter={{speed: 1.5, delay: 600}}>
+          <span class="text-4xl" in:typewriter={{speed: 1.5, delay: 300}}>
             ░　Welcome to the domain of　░
           </span>
           <br>
-          <span class="font-extralight" in:typewriter={{speed: 1.5, delay: 2500}}>
+          <span class="font-extralight" in:typewriter={{speed: 1.5, delay: 2200}}>
             krypto ♢ kongerne
           </span>
         </span>

@@ -22,7 +22,7 @@
 </script>
 
 <!-- SILLY GIFS!! -->
-<!-- <RandomFloaties /> -->
+<RandomFloaties />
 
 <div class="flex flex-col min-h-screen">
   <div class="mx-auto flex flex-col flex-grow w-full max-w-4xl">

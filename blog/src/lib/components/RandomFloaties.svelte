@@ -37,11 +37,12 @@
   const weirdPool = [
     "butterfly.png",
     "crown2.png",
-    "crown2.png"
   ]
 
+  const ddiv = 20
+
   const randomLefties = (density) => {
-    const blob_cnt = randomBetween(3, 4) * density
+    const blob_cnt = Math.round((randomBetween(4, 5) * density) / ddiv)
     let blob_images = []
     for (let i = 0; i < blob_cnt; i++) {
       blob_images.push(randomInArr(blobPool))
@@ -56,7 +57,7 @@
       seeds: [Math.random(), Math.random()]
     }))
 
-    const coint_cnt = randomBetween(0, 1) * density
+    const coint_cnt = Math.round((randomBetween(0, 1) * density) / ddiv)
     let coin_images = []
     for (let i = 0; i < coint_cnt; i++) {
       coin_images.push(randomInArr(coinPool))
@@ -78,7 +79,7 @@
   }
 
   const randomRighties = (density) => {
-    const blob_cnt = randomBetween(2, 3) * density
+    const blob_cnt = Math.round((randomBetween(2, 3) * density) / ddiv)
     let blob_images = []
     for (let i = 0; i < blob_cnt; i++) {
       blob_images.push(randomInArr(blobPool))
@@ -132,8 +133,8 @@
   let LEFT = null
   let RIGHT = null
   onMount(() => {
-    LEFT = randomLefties(Math.ceil(h/1000))
-    RIGHT = randomRighties(Math.ceil(h/2000))
+    LEFT = randomLefties(Math.ceil(h/100))
+    RIGHT = randomRighties(Math.ceil(h/200))
     const frozenLEFT = LEFT
     const frozenRIGHT = RIGHT
 
@@ -156,7 +157,9 @@
         const R_SPEED = [SPEED * frzen.seeds[0], SPEED * frzen.seeds[1]]
         const x_offset = Math.sin((cnt+frzen.seeds[0])*R_SPEED[0])*R_AMP[0]
         const y_offset = Math.sin((cnt+frzen.seeds[1])*R_SPEED[1])*R_AMP[1]
-          // + frzen.size > 100 ? y * (frzen.size/400) : 0
+          // + frzen.size > 100 ? Math.round(y * (frzen.size * 0.0012)) : 0
+
+        console.log(Math.round(y * (frzen.size * 0.0012)))
 
         return {
           ...gif,
@@ -172,7 +175,7 @@
         const R_SPEED = [SPEED * frzen.seeds[0], SPEED * frzen.seeds[1]]
         const x_offset = Math.sin((cnt+frzen.seeds[0])*R_SPEED[0])*R_AMP[0]
         const y_offset = Math.sin((cnt+frzen.seeds[1])*R_SPEED[1])*R_AMP[1]
-          // + frzen.size > 100 ? y * (frzen.size/400) : 0
+          // + frzen.size > 100 ? Math.round(y * (frzen.size * 0.0012)) : 0
 
         return {
           ...gif,
@@ -216,15 +219,15 @@
 
   .left {
     left: -30px;
-    bottom: 180px;
-    height: calc(100% - 180px);
+    bottom: 150px;
+    height: calc(100% - 150px);
     width: calc(40vw - 400px);
   }
 
   .right {
     top: 250px;
-    bottom: 180px;
-    height: calc(100% - 430px);
+    bottom: 150px;
+    height: calc(100% - 400px); /* top + bottom = 550px */
     width: calc(40vw - 420px);
     right: -30px;
   }

@@ -2,7 +2,7 @@
 title: Getting Wet
 date: 2022-03-25
 ---
-We added **node-red UI** and started prototyping the physical setup.
+We added **node-red UI** and started prototyping the physical setup. And 3D printing!!
 ![](./jonathan-got-wet.jpg)
 
 Today we had a blast with getting Jonathan wet. Andreas & Mouna used legos to prototype our mechanism for spraying water (raining) on the user, which was tested propperly and thoroughly.
@@ -11,6 +11,10 @@ We also had some trouble with getting our MQTT broker (`MaQiatto`) working, but 
 
 Here is a cute snapshot of the prototyping area of our table from today:
 ![](./prototyping.jpg)
+
+We also designed casing for the two node modules, which we began the 3D printing process of:
+![](./printing.jpg)
+
 ## Homework
 Before the final project day on next friday, we agreed to meet Tuesday to work on some stuff. We agreed to do some homework before meeting again:
 

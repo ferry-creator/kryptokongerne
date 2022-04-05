@@ -1,10 +1,6 @@
 
 //////////// Initiering ///////////
 
-
-
-
-//inkluderer nødvendige bibloteker
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <SPI.h>
@@ -14,54 +10,39 @@
 const char* ssid = "OnePlus 7"; //Indsæt navnet på jeres netværk her
 const char* password = "55012bceb395"; //Indsæt password her
 
-// Definerer information til mqtt serveren
-const char *mqtt_server = "maqiatto.com"; //navn på mqtt-server. Find navnet på cloudmqtt-hjemmesiden
+//  information tilDefinerer mqtt serveren
+const char *mqtt_server = "maqiatto.com"; //navn på mqtt-server
 const int mqtt_port = 1883; // Definerer porten
 const char *mqtt_user = "s203775@student.dtu.dk"; // Definerer mqtt-brugeren
 const char *mqtt_pass = "mqtt1234"; // Definerer koden til mqtt-brugeren
 //
 
-String payload; // Definerer variablen 'payload' i det globale scope (payload er navnet på besked-variablen)
+String payload; // payload er navnet på besked-variablen
 String DATA;
-const int capteur_D = 5;
-const int capteur_A = 18;
-int val_analogique;
+const int pin_D = 5;
+const int pin_A = 18;
 
 /////// INITIERING SLUT //////////
 
-//
-//
-//
-//
-//
-//
-
 /////// FUNKTIONSOPSÆTNING ////////
 
+// Opretter en klient der kan forbinde til en specifik internet IP adresse.
+WiFiClient espClient; // Initialiserer wifi bibloteket ESP8266Wifi
 
-// Opretter en placeholder for callback-funktionen til brug senere. Den rigtige funktion ses længere nede.
+// Opretter en placeholder for callback-funktionen til brug senere
 void callback(char* byteArraytopic, byte* byteArrayPayload, unsigned int length);
 
-// Opretter en klient der kan forbinde til en specifik internet IP adresse.
-WiFiClient espClient; // Initialiserer wifi bibloteket ESP8266Wifi, som er inkluderet under "nødvendige bibloteker"
+// Initialiserer biblioteket ift. mqtt klienten
+PubSubClient client(mqtt_server, mqtt_port, callback, espClient);
 
-// Opretter forbindelse til mqtt klienten:
-PubSubClient client(mqtt_server, mqtt_port, callback, espClient); // Initialiserer bibloteket for at kunne modtage og sende beskeder til mqtt. Den henter fra definerede mqtt server og port. Den henter fra topic og beskeden payload
-
-  
 /////// FUNKTIONSOPSÆTNING SLUT /////////
-
-//
-//
-//
-//
-//
-//
 
 ///////// CALLBACKFUNKTION ////////
 
 // Definerer callback funktionen der modtager beskeder fra mqtt
-// OBS: den her funktion kører hver gang MCU'en modtager en besked via mqtt
+// Kører hver gang MCU'en modtager en besked via mqtt
+
+// !!!!!!!!! SIMPLIFICER SENERE, VI SKAL FAKTISK IKKE BRUGE DEN !!!!!!!!!!!
 void callback(char* byteArraytopic, byte* byteArrayPayload, unsigned int length) {
 
   // Konverterer indkomne besked (topic) til en string:
@@ -72,17 +53,16 @@ void callback(char* byteArraytopic, byte* byteArrayPayload, unsigned int length)
   Serial.println("] ");
   // Konverterer den indkomne besked (payload) fra en array til en string:
   // Topic == Temperaturmaaler, Topic == Kraftsensor
-  if (topic == "s203775@student.dtu.dk/esp32_rainSensor") { // OBS: der subscribes til et topic nede i reconnect-funktionen. I det her tilfælde er der subscribed til "Test". Man kan subscribe til alle topics ved at bruge "#"
-    payload = ""; // Nulstil payload variablen så forloopet ikke appender til en allerede eksisterende payload
+  if (topic == "s203775@student.dtu.dk/esp32_rainSensor") { // Der subscribes til et topic nede i reconnect-funktionen. I det her tilfælde er der subscribed til "Test". Man kan subscribe til alle topics ved at bruge "#"
+    payload = ""; // start payload
     for (int i = 0; i < length; i++) {
-      payload += (char)byteArrayPayload[i];
-      // For-loop: tag hvert tegn i hele længden af den inkomne besked, og konverter denne til en char. Append tegnene 1 efter 1:
-      // Eksempel:
-      // Besked = Study Abroad
-      // Length = 12
-      // Loop 1 = "S"
-      // Loop 2 = "St" osv.
-      // Loop (length) = "Study Abroad"
+      // Udfyld payload fra byteArrayPayload
+      payload += (char)byteArrayPayload[i]; 
+
+    switch(payload) {
+      case "LOW":
+
+    }
 
     if (payload == "LOW")
     {
@@ -109,15 +89,7 @@ void callback(char* byteArraytopic, byte* byteArrayPayload, unsigned int length)
 
 ///////// CALLBACK SLUT /////////
 
-//
-//
-//
-//
-//
-//
-
 /////// OPSÆTNING AF WIFI-FORBINDELSE  ///////////
-
 
 // Opretter forbindelse til WiFi
 void setup_wifi() {
@@ -173,27 +145,16 @@ void reconnect() {
 //
 //
 
-///////// SETUP ///////////
+///////// ARDUINO EVENT LOOP ///////////
 void setup() {
-
-  Serial.begin(115200); // Åbner serial porten og sætter data raten til 115200 baud
+  Serial.begin(115200); // Åbner serial porten
   delay(1000);
-  setup_wifi(); // Kører WiFi loopet og forbinder herved.
-  client.setServer(mqtt_server, mqtt_port); // Forbinder til mqtt serveren (defineret længere oppe)
+  setup_wifi(); // Kører WiFi setup og forbinder herved
+  client.setServer(mqtt_server, mqtt_port); // Forbinder til mqtt serveren
   //client.setCallback(callback); // Ingangsætter den definerede callback funktion hver gang der er en ny besked på den subscribede "cmd"- topic
-  pinMode(capteur_D, INPUT);
-  pinMode(capteur_A, INPUT);
+  pinMode(pin_D, INPUT);
+  pinMode(pin_A, INPUT);
 }
-//////// SETUP SLUT ////////
-
-//
-//
-//
-//
-//
-//
-
-/////// LOOP /////////
 
 void loop() 
 {
@@ -202,18 +163,19 @@ void loop()
     reconnect();
   }
   client.loop();
-  if(digitalRead(capteur_D) == LOW)
-    {
+  if(digitalRead(pin_D) == LOW)
+  {
     client.publish("s203775@student.dtu.dk/esp32_actuator", "WET");
-    Serial.println("Digital value : wet"); 
-    delay(10); 
-    }
+    Serial.println("Digital value : wet");
+    delay(10);
+  }
   else
-    {
-    Serial.println("Digital value : dry"); 
+  {
     client.publish("s203775@student.dtu.dk/esp32_actuator", "DRY");
-    }
+    Serial.println("Digital value : dry");
+    delay(10);
+  }
   delay(1000);
 }
 
-//////// Loop slut ////////
+///////// ARDUINO EVENT LOOP SLUT ///////////

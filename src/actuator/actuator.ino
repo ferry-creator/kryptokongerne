@@ -119,7 +119,7 @@ void callback(char* byteArraytopic, byte* byteArrayPayload, unsigned int length)
       // Loop 2 = "St" osv.
       // Loop (length) = "Study Abroad"
 
-    if (payload == "LOW")
+    if (payload == "WET")
     {
       int strength=5;
     }

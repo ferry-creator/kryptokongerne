@@ -1,0 +1,605 @@
+[
+    {
+        "id": "e8ab23c33670ad7f",
+        "type": "tab",
+        "label": "MQTT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ad5b7fec4c4ed888",
+        "type": "tab",
+        "label": "User Interface",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a3414c2d4b3b27b6",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#37a9a2",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#1ccaa7",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#1ccaa7",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#1ccaa7",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#4ce6c7",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#1ccaa7",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "6f19112891f93c05",
+        "type": "ui_tab",
+        "name": "Rain Simulator",
+        "icon": "wi-wu-sleet",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "04ee4f9439db37f0",
+        "type": "ui_group",
+        "name": "Controls",
+        "tab": "6f19112891f93c05",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9be38ff77c1e7b1b",
+        "type": "mqtt-broker",
+        "name": "MaQiaTTo",
+        "broker": "maqiatto.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "fa3a21b02efdc7fa",
+        "type": "ui_group",
+        "name": "Log In",
+        "tab": "6f19112891f93c05",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "196ea918ae94673b",
+        "type": "mqtt out",
+        "z": "e8ab23c33670ad7f",
+        "name": "Actuator (esp32)",
+        "topic": "stuffe8@gmail.com/esp32_actuator",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "9be38ff77c1e7b1b",
+        "x": 540,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "bd0672a3277cbc82",
+        "type": "mqtt in",
+        "z": "e8ab23c33670ad7f",
+        "name": "Rain Sensor (esp32) in",
+        "topic": "stuffe8@gmail.com/esp32_rainSensor",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "9be38ff77c1e7b1b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 600,
+        "wires": [
+            [
+                "196ea918ae94673b",
+                "baadb85e85cd2750"
+            ]
+        ]
+    },
+    {
+        "id": "9f4904f069822928",
+        "type": "ui_text",
+        "z": "e8ab23c33670ad7f",
+        "group": "04ee4f9439db37f0",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Weather status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 700,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "baadb85e85cd2750",
+        "type": "function",
+        "z": "e8ab23c33670ad7f",
+        "name": "Send message",
+        "func": "if (msg.payload == \"WET\"){\n    msg.payload = \"The rain is on\"}\nelse {msg.payload = \"It's not raining\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 600,
+        "wires": [
+            [
+                "9f4904f069822928"
+            ]
+        ]
+    },
+    {
+        "id": "df88bd06ee38184c",
+        "type": "status",
+        "z": "e8ab23c33670ad7f",
+        "name": "MQTT status",
+        "scope": [
+            "196ea918ae94673b",
+            "bd0672a3277cbc82"
+        ],
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "6136768d03e05ae9"
+            ]
+        ]
+    },
+    {
+        "id": "6136768d03e05ae9",
+        "type": "link out",
+        "z": "e8ab23c33670ad7f",
+        "name": "STATUS",
+        "mode": "link",
+        "links": [
+            "05c8626a6f646509"
+        ],
+        "x": 285,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "91fcd729c1738db5",
+        "type": "comment",
+        "z": "e8ab23c33670ad7f",
+        "name": "Send MQTT nodes status to UI",
+        "info": "",
+        "x": 230,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "28a8b0fd14730a2a",
+        "type": "debug",
+        "z": "e8ab23c33670ad7f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "d9f13948ab095948",
+        "type": "link in",
+        "z": "e8ab23c33670ad7f",
+        "name": "MQTT publish",
+        "links": [
+            "49b23eda0b607abd"
+        ],
+        "x": 245,
+        "y": 480,
+        "wires": [
+            [
+                "196ea918ae94673b",
+                "28a8b0fd14730a2a"
+            ]
+        ]
+    },
+    {
+        "id": "472f3e8ff6b74366",
+        "type": "ui_form",
+        "z": "ad5b7fec4c4ed888",
+        "name": "login form",
+        "label": "Enter your credentials",
+        "group": "fa3a21b02efdc7fa",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Username",
+                "value": "Username",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Password",
+                "value": "Password",
+                "type": "password",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "Username": "",
+            "Password": ""
+        },
+        "payload": "",
+        "submit": "Log in",
+        "cancel": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 280,
+        "y": 240,
+        "wires": [
+            [
+                "b73cf0edb768213b"
+            ]
+        ]
+    },
+    {
+        "id": "0b92b98cf17cc9c0",
+        "type": "join",
+        "z": "ad5b7fec4c4ed888",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "",
+        "propertyType": "full",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 370,
+        "y": 700,
+        "wires": [
+            [
+                "5d523af8df62147d"
+            ]
+        ]
+    },
+    {
+        "id": "5d523af8df62147d",
+        "type": "function",
+        "z": "ad5b7fec4c4ed888",
+        "name": "true when all MQTT connected",
+        "func": "const connected = !msg.payload.some(x => {\n    return x.status.fill !== \"green\"\n})\n\nmsg.payload = connected\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 700,
+        "wires": [
+            [
+                "2aed5720c04da840"
+            ]
+        ]
+    },
+    {
+        "id": "05c8626a6f646509",
+        "type": "link in",
+        "z": "ad5b7fec4c4ed888",
+        "name": "",
+        "links": [
+            "6136768d03e05ae9"
+        ],
+        "x": 275,
+        "y": 700,
+        "wires": [
+            [
+                "0b92b98cf17cc9c0"
+            ]
+        ]
+    },
+    {
+        "id": "b88849cb0ea5a75d",
+        "type": "comment",
+        "z": "ad5b7fec4c4ed888",
+        "name": "If all MQTT nodes are connected",
+        "info": "",
+        "x": 390,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "fe5c7fb882de6b0a",
+        "type": "ui_button",
+        "z": "ad5b7fec4c4ed888",
+        "name": "",
+        "group": "04ee4f9439db37f0",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Emergency Stop",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "STOP",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "49b23eda0b607abd"
+            ]
+        ]
+    },
+    {
+        "id": "5d86eed555aff634",
+        "type": "ui_slider",
+        "z": "ad5b7fec4c4ed888",
+        "name": "",
+        "label": "Strength Slider",
+        "tooltip": "How accurately to simulate the weather",
+        "group": "04ee4f9439db37f0",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "5",
+        "step": 1,
+        "className": "",
+        "x": 400,
+        "y": 520,
+        "wires": [
+            [
+                "49b23eda0b607abd"
+            ]
+        ]
+    },
+    {
+        "id": "49b23eda0b607abd",
+        "type": "link out",
+        "z": "ad5b7fec4c4ed888",
+        "name": "MQTT publish",
+        "mode": "link",
+        "links": [
+            "d9f13948ab095948"
+        ],
+        "x": 585,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "2aed5720c04da840",
+        "type": "ui_text",
+        "z": "ad5b7fec4c4ed888",
+        "group": "04ee4f9439db37f0",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "MQTT connection",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 810,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "c96b1ce138b23896",
+        "type": "ui_ui_control",
+        "z": "ad5b7fec4c4ed888",
+        "name": "",
+        "events": "all",
+        "x": 580,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b73cf0edb768213b",
+        "type": "function",
+        "z": "ad5b7fec4c4ed888",
+        "name": "AUTH",
+        "func": "const { Username, Password } = msg.payload\nlet showControls = false\nif (Username === \"admin\" && Password === \"1234\" ) {\n    msg.payload = {\n        \"group\": {\n            \"show\": [\n                \"Rain_Simulator_Controls\"\n            ],\n            \"hide\": [\n                \"Rain_Simulator_Log_In\"\n            ]\n        }\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 240,
+        "wires": [
+            [
+                "c96b1ce138b23896"
+            ]
+        ]
+    },
+    {
+        "id": "c12690390c574d9e",
+        "type": "ui_button",
+        "z": "ad5b7fec4c4ed888",
+        "name": "Log out",
+        "group": "04ee4f9439db37f0",
+        "order": 4,
+        "width": "2",
+        "height": "1",
+        "passthru": false,
+        "label": "Log out",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#494949",
+        "className": "",
+        "icon": "",
+        "payload": "{\"group\":{\"hide\":[\"Rain_Simulator_Controls\"],\"show\":[\"Rain_Simulator_Log_In\"]}}",
+        "payloadType": "json",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 400,
+        "y": 200,
+        "wires": [
+            [
+                "c96b1ce138b23896"
+            ]
+        ]
+    },
+    {
+        "id": "07d051a93b51b12d",
+        "type": "comment",
+        "z": "ad5b7fec4c4ed888",
+        "name": "Sends \"STOP\"",
+        "info": "",
+        "x": 400,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "681e060c1e6a4aec",
+        "type": "comment",
+        "z": "ad5b7fec4c4ed888",
+        "name": "Sends strength number",
+        "info": "",
+        "x": 380,
+        "y": 480,
+        "wires": []
+    }
+]

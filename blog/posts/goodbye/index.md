@@ -2,10 +2,14 @@
 title: Final Blog Post
 date: 2022-04-08
 ---
-What a crazy ride it's been, thank you all so much for following along on here 😥
+What a crazy ride it's been, thank you all so much for following along on here 😥 
 ![](./summary.jpg)
 
-# **Chindogu - Indoor rain simulator**
+Check out the `node-red` project on [azure@137.135.141.84:1880](http://137.135.141.84:1880/)
+
+The dashboard / app can be found at [/ui](http://137.135.141.84:1880/ui/), login with: `admin | 1234`
+#
+# **Chindōgu: Indoor Rain Simulator**
 The goal of this project was to design an IoT Chindogu prototype that senses when it’s raining outside and gives you a refreshing notice in the form of being sprayed in the face with water.
 
 For this we use Node-RED that is a visual programming language that allows us to communicate wirelessly with a NodeMCU and make a web-based UI.
@@ -239,3 +243,8 @@ It could be very interesting in a further expanded simulation of the weather, wh
 
 **3D printed box**
 -   CAD & 3D printing: Kristoffer & August
+# 
+# ~
+# ~
+# ~
+# ~ Until next time crypto-gang 💯 skrrt 💯

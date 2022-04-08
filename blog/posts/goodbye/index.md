@@ -106,7 +106,7 @@ The speed at which the engine runs can be controlled through the slider in the A
 #define speedMax 255
 int strength = 0;     // get from app
 
-int speedFromStrength(int) {
+int speedFromStrength(int x) {
 	// equation, x in range [a,b]:
 	// x(a,b) = (b-a) * ( (x-x[min]) / x[max]-x[min] ) + a
 	// x[min] assumed 0:

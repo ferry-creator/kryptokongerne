@@ -4,7 +4,7 @@
   export const load = async ({ fetch }) => {
     return {
       props: {
-        recentPosts: await fetch('/posts.json?limit=2').then((res) => res.json())
+        recentPosts: await fetch('/posts.json?limit=6').then((res) => res.json())
       }
     }
   }

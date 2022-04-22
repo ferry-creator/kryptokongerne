@@ -12,11 +12,22 @@ html,body {
 
 .prose img {
   @apply rounded-md shadow-md dark:shadow-slate-900;
-  @apply w-10/12;
+  /* @apply w-10/12; */
+  max-width: 83%;
+  max-height: 500px;
 }
 
 .prose p:first-child img {
   @apply w-full;
+  max-height: none;
+  max-width: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .prose img {
+    max-height: none;
+    max-width: 95%;
+  }
 }
 
 .prose video {

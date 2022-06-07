@@ -1,0 +1,5 @@
+{
+  "type": "heightSensor",
+  "freq": 1000,
+  "reps": 5
+}

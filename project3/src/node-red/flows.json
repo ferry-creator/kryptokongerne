@@ -1,0 +1,1094 @@
+[
+    {
+        "id": "fb94b5ca5ce751d5",
+        "type": "tab",
+        "label": "mcu",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a00d9ff1d49b324a",
+        "type": "tab",
+        "label": "node-red",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "85ecac428367bed1",
+        "type": "tab",
+        "label": "test",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dc4958470e403265",
+        "type": "tab",
+        "label": "Response logs",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4d4ebc1375adc542",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#a48d79",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#a48d79",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#a48d79",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#c3b4a7",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#a48d79",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Sourdough Manager 2022",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "9d49a9027f140f70",
+        "type": "ui_tab",
+        "name": "Sourdough Manager 2022",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "70e4408fb7a5530a",
+        "type": "ui_group",
+        "name": "Main",
+        "tab": "9d49a9027f140f70",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "42de78205b9c9f26",
+        "type": "mqtt-broker",
+        "name": "HiveMQ",
+        "broker": "d442f1008e514e098cb3126d115cb356.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "8b1c6d0afb05f24d",
+        "type": "ui_spacer",
+        "z": "fb94b5ca5ce751d5",
+        "name": "spacer",
+        "group": "70e4408fb7a5530a",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "9c374d34624eca9c",
+        "type": "mqtt-broker",
+        "name": "CloudMQTT",
+        "broker": "hairdresser.cloudmqtt.com",
+        "port": "15687",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f7a6956cc03bf7dc",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "kryptokogeren.northeurope.cloudapp.azure.com",
+        "port": "1883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "8e6c4df65096e965",
+        "type": "mqtt out",
+        "z": "fb94b5ca5ce751d5",
+        "name": "JSON out",
+        "topic": "mcu",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "f7a6956cc03bf7dc",
+        "x": 1260,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "228687a8a9d755b1",
+        "type": "ui_button",
+        "z": "fb94b5ca5ce751d5",
+        "name": "",
+        "group": "70e4408fb7a5530a",
+        "order": 1,
+        "width": "2",
+        "height": "2",
+        "passthru": false,
+        "label": "{{msg.label}}",
+        "tooltip": "Begin the incubation process",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "{{msg.icon}}",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "bafe0708f4376ee4"
+            ]
+        ]
+    },
+    {
+        "id": "bafe0708f4376ee4",
+        "type": "finite-state-machine",
+        "z": "fb94b5ca5ce751d5",
+        "name": "",
+        "fsmDefinition": "{\"state\":{\"status\":\"IDLE\"},\"transitions\":{\"IDLE\":{\"start\":{\"status\":\"STARTING\",\"data\":{\"climate\":null,\"initHeight\":null}}},\"STARTING\":{\"incubate\":\"INCUBATING\"},\"INCUBATING\":{\"stop\":{\"status\":\"IDLE\",\"data\":{\"climate\":0,\"initHeight\":null}},\"await\":\"AWAITING\"},\"AWAITING\":{\"stop\":{\"status\":\"IDLE\",\"data\":{\"climate\":0,\"initHeight\":null}}}}}",
+        "sendInitialState": true,
+        "sendStateWithoutChange": false,
+        "showTransitionErrors": false,
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "07a9f063f81029a9",
+                "285089553ed934e0",
+                "f8d0e68dfce860d4"
+            ]
+        ]
+    },
+    {
+        "id": "408b2db416d24e84",
+        "type": "ui_slider",
+        "z": "fb94b5ca5ce751d5",
+        "name": "Incubation Speed",
+        "label": "Incubation Speed",
+        "tooltip": "Should incubation be fast or slow?",
+        "group": "70e4408fb7a5530a",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "-3",
+        "max": "3",
+        "step": 1,
+        "className": "",
+        "x": 650,
+        "y": 140,
+        "wires": [
+            [
+                "63a50b07cfe79dfb"
+            ]
+        ]
+    },
+    {
+        "id": "07a9f063f81029a9",
+        "type": "function",
+        "z": "fb94b5ca5ce751d5",
+        "name": "Sel data.climate",
+        "func": "const prop = msg.payload.data.climate\nmsg.payload = prop\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 140,
+        "wires": [
+            [
+                "408b2db416d24e84"
+            ]
+        ],
+        "inputLabels": [
+            "[current]"
+        ]
+    },
+    {
+        "id": "f8d0e68dfce860d4",
+        "type": "function",
+        "z": "fb94b5ca5ce751d5",
+        "name": "btn controller",
+        "func": "const state = msg.payload.status\nif(state === \"IDLE\") {\n    \n}\nswitch(state) {\n    case \"IDLE\":\n        msg.label = \"Start\"\n        msg.topic = \"start\"\n        msg.icon  = \"fa-play\"\n        break\n    case \"STARTING\":\n        msg.label = \"... Starting\"\n        msg.topic = null\n        msg.icon  = null\n        break\n    case \"INCUBATING\":\n        msg.label = \"Stop\"\n        msg.topic = \"stop\"\n        msg.icon  = \"fa-stop\"\n        break\n    case \"AWAITING\":\n        msg.label = \"Finish\"\n        msg.topic = \"stop\"\n        msg.icon  = \"fa-stop\"\n        break\n}\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "228687a8a9d755b1"
+            ]
+        ]
+    },
+    {
+        "id": "285089553ed934e0",
+        "type": "function",
+        "z": "fb94b5ca5ce751d5",
+        "name": "Sel status",
+        "func": "const state = msg.payload.status\nmsg.payload = state\nglobal.set(\"state\", state)\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 260,
+        "wires": [
+            [
+                "b0e0f5549072bb7b",
+                "d6333e7ed0cf2b02",
+                "c642f5bd0ebd4cd5",
+                "f10ff03337dd6c3b"
+            ]
+        ]
+    },
+    {
+        "id": "b0e0f5549072bb7b",
+        "type": "ui_text",
+        "z": "fb94b5ca5ce751d5",
+        "group": "70e4408fb7a5530a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "State",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 690,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "89c8c7c453f515ef",
+        "type": "json",
+        "z": "fb94b5ca5ce751d5",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1090,
+        "y": 260,
+        "wires": [
+            [
+                "8e6c4df65096e965",
+                "f392049191ee7a5f"
+            ]
+        ]
+    },
+    {
+        "id": "d6333e7ed0cf2b02",
+        "type": "function",
+        "z": "fb94b5ca5ce751d5",
+        "name": "Switch on State",
+        "func": "const status = msg.payload\nswitch(status) {\n    case \"IDLE\":\n        msg.payload = {}\n        global.set(\"initialHeight\") //remove\n        break\n    case \"STARTING\":\n        msg.payload = {\n            \"type\": \"heightSensor\",\n            \"freq\": 1000,\n            \"reps\": 5\n        }\n        break\n    case \"INCUBATING\":\n        msg.payload = {}\n        break\n}\nmsg.payload = {status, ...msg.payload}\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 260,
+        "wires": [
+            [
+                "89c8c7c453f515ef"
+            ]
+        ]
+    },
+    {
+        "id": "63a50b07cfe79dfb",
+        "type": "range",
+        "z": "fb94b5ca5ce751d5",
+        "minin": "-3",
+        "maxin": "3",
+        "minout": "0",
+        "maxout": "255",
+        "action": "scale",
+        "round": true,
+        "property": "payload",
+        "name": "",
+        "x": 840,
+        "y": 140,
+        "wires": [
+            [
+                "c36cd5a48a063b0b",
+                "73cbd012543994d9"
+            ]
+        ]
+    },
+    {
+        "id": "0df9330c4d91f7ad",
+        "type": "link in",
+        "z": "fb94b5ca5ce751d5",
+        "name": "to FSM",
+        "links": [
+            "3220b7c04f7e1c4f",
+            "a44c8c471d412813"
+        ],
+        "x": 225,
+        "y": 320,
+        "wires": [
+            [
+                "bafe0708f4376ee4"
+            ]
+        ]
+    },
+    {
+        "id": "c36cd5a48a063b0b",
+        "type": "function",
+        "z": "fb94b5ca5ce751d5",
+        "name": "Set \"incubationSpeed\" [flow]",
+        "func": "flow.set(\"incubationSpeed\", msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1100,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "73cbd012543994d9",
+        "type": "function",
+        "z": "fb94b5ca5ce751d5",
+        "name": "Set Incubation Speed",
+        "func": "const state = global.get(\"state\")\nif(state === \"INCUBATING\") {\n    msg.payload = {\n        \"type\": \"climate\",\n        \"enable\": true,\n        \"incubationSpeed\": flow.get(\"incubationSpeed\")\n    }\n    return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 140,
+        "wires": [
+            [
+                "89c8c7c453f515ef"
+            ]
+        ]
+    },
+    {
+        "id": "c642f5bd0ebd4cd5",
+        "type": "link out",
+        "z": "fb94b5ca5ce751d5",
+        "name": "State change",
+        "mode": "link",
+        "links": [
+            "e403a6a211141d16",
+            "9e4d5113bec38786"
+        ],
+        "x": 725,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f10ff03337dd6c3b",
+        "type": "function",
+        "z": "fb94b5ca5ce751d5",
+        "name": "Get height continously",
+        "func": "const state = global.get(\"state\")\nif(state === \"INCUBATING\") {\n    msg.payload = {\n        \"status\": state,\n        \"type\": \"heightSensor\",\n        \"freq\": 1,\n        \"reps\": 5\n    }\n    return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 360,
+        "wires": [
+            [
+                "89c8c7c453f515ef",
+                "568ce529ad668298"
+            ]
+        ]
+    },
+    {
+        "id": "f392049191ee7a5f",
+        "type": "debug",
+        "z": "fb94b5ca5ce751d5",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "568ce529ad668298",
+        "type": "delay",
+        "z": "fb94b5ca5ce751d5",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1120,
+        "y": 360,
+        "wires": [
+            [
+                "f10ff03337dd6c3b"
+            ]
+        ]
+    },
+    {
+        "id": "18f700adc5b1f454",
+        "type": "mqtt in",
+        "z": "a00d9ff1d49b324a",
+        "name": "JSON in",
+        "topic": "node-red",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "42de78205b9c9f26",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 120,
+        "wires": [
+            [
+                "cd59e4d77b8bf366"
+            ]
+        ]
+    },
+    {
+        "id": "37e347cdf570ceaf",
+        "type": "debug",
+        "z": "a00d9ff1d49b324a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "cd59e4d77b8bf366",
+        "type": "json",
+        "z": "a00d9ff1d49b324a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "37e347cdf570ceaf",
+                "9371853bdb3f3e5c"
+            ]
+        ]
+    },
+    {
+        "id": "15413418d4091d69",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Set Initial Height",
+        "func": "if(msg.payload.status === \"STARTING\") {\n    global.set(\"initialHeight\", msg.payload.mean)\n    msg.topic = \"incubate\"\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 340,
+        "wires": [
+            [
+                "3220b7c04f7e1c4f",
+                "6dac218bbfa3b032"
+            ]
+        ]
+    },
+    {
+        "id": "93f59d9c904345cd",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "MeanHeight",
+        "func": "const sum = msg.payload.data.reduce((acc,cur) => {\n    return acc += cur\n},0)\nmsg.payload.mean = parseInt(sum / msg.payload.data.length)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 340,
+        "wires": [
+            [
+                "15413418d4091d69",
+                "477b95154ade860d",
+                "13b14380afa66727"
+            ]
+        ]
+    },
+    {
+        "id": "a06f0a9f9b472bfc",
+        "type": "inject",
+        "z": "a00d9ff1d49b324a",
+        "name": "heightSensor [STARTING]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"status\":\"STARTING\",\"type\":\"heightSensor\",\"data\":[100,2000,3000,312,23]}",
+        "payloadType": "json",
+        "x": 310,
+        "y": 300,
+        "wires": [
+            [
+                "93f59d9c904345cd"
+            ]
+        ]
+    },
+    {
+        "id": "477b95154ade860d",
+        "type": "ui_text",
+        "z": "a00d9ff1d49b324a",
+        "group": "70e4408fb7a5530a",
+        "order": 6,
+        "width": "0",
+        "height": "0",
+        "name": "",
+        "label": "Height",
+        "format": "{{msg.payload.mean}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 850,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "3220b7c04f7e1c4f",
+        "type": "link out",
+        "z": "a00d9ff1d49b324a",
+        "name": "to FSM",
+        "mode": "link",
+        "links": [
+            "0df9330c4d91f7ad"
+        ],
+        "x": 1025,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "2d808d9b9db13925",
+        "type": "inject",
+        "z": "a00d9ff1d49b324a",
+        "name": "heightSensor [INCUBATING - double height]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"status\":\"INCUBATING\",\"type\":\"heightSensor\",\"data\":[2174,2174,2174,2174,2174]}",
+        "payloadType": "json",
+        "x": 250,
+        "y": 380,
+        "wires": [
+            [
+                "93f59d9c904345cd"
+            ]
+        ]
+    },
+    {
+        "id": "6dac218bbfa3b032",
+        "type": "ui_text",
+        "z": "a00d9ff1d49b324a",
+        "group": "70e4408fb7a5530a",
+        "order": 5,
+        "width": "0",
+        "height": "0",
+        "name": "",
+        "label": "Initial height",
+        "format": "{{msg.payload.mean}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 1010,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "9e4d5113bec38786",
+        "type": "link in",
+        "z": "a00d9ff1d49b324a",
+        "name": "State change",
+        "links": [
+            "c642f5bd0ebd4cd5"
+        ],
+        "x": 485,
+        "y": 460,
+        "wires": [
+            [
+                "3381fcd1b836671f"
+            ]
+        ]
+    },
+    {
+        "id": "3381fcd1b836671f",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Reset height text",
+        "func": "if(msg.payload === \"IDLE\") {\n    msg.payload = null\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 460,
+        "wires": [
+            [
+                "477b95154ade860d",
+                "6dac218bbfa3b032"
+            ]
+        ]
+    },
+    {
+        "id": "13b14380afa66727",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Check if height has doubled",
+        "func": "if(msg.payload.status === \"INCUBATING\") {\n    const initialHeight = global.get(\"initialHeight\")\n    const currentHeight = msg.payload.mean\n    if( currentHeight >= initialHeight * 2) {\n        msg.payload = \"Sourdough is ready!\"\n        return msg;\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 260,
+        "wires": [
+            [
+                "6be2b23545cc45f6"
+            ]
+        ]
+    },
+    {
+        "id": "6be2b23545cc45f6",
+        "type": "ui_toast",
+        "z": "a00d9ff1d49b324a",
+        "position": "dialog",
+        "displayTime": "",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "Sourdough ready",
+        "x": 1150,
+        "y": 260,
+        "wires": [
+            [
+                "33a4df7145e44607"
+            ]
+        ]
+    },
+    {
+        "id": "f61c44109df7056f",
+        "type": "inject",
+        "z": "a00d9ff1d49b324a",
+        "name": "heightSensor [INCUBATING]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"status\":\"INCUBATING\",\"type\":\"heightSensor\",\"data\":[100,2000,3256,3120,230]}",
+        "payloadType": "json",
+        "x": 300,
+        "y": 340,
+        "wires": [
+            [
+                "93f59d9c904345cd"
+            ]
+        ]
+    },
+    {
+        "id": "33a4df7145e44607",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "go to AWAITING if \"OK\"",
+        "func": "if(msg.payload === \"OK\") {\n    msg.topic = \"await\"\n    return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1370,
+        "y": 260,
+        "wires": [
+            [
+                "a44c8c471d412813"
+            ]
+        ]
+    },
+    {
+        "id": "a44c8c471d412813",
+        "type": "link out",
+        "z": "a00d9ff1d49b324a",
+        "name": "to FSM",
+        "mode": "link",
+        "links": [
+            "0df9330c4d91f7ad"
+        ],
+        "x": 1525,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "9371853bdb3f3e5c",
+        "type": "switch",
+        "z": "a00d9ff1d49b324a",
+        "name": "",
+        "property": "payload.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "heightSensor",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "flour",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 490,
+        "y": 220,
+        "wires": [
+            [
+                "93f59d9c904345cd"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7367f2ace9a51065",
+        "type": "finite-state-machine",
+        "z": "85ecac428367bed1",
+        "name": "",
+        "fsmDefinition": "{\"state\":{\"status\":\"IDLE\"},\"transitions\":{\"IDLE\":{\"run\":\"RUNNING\"},\"RUNNING\":{\"stop\":\"IDLE\",\"set\":\"RUNNING\"}}}",
+        "sendInitialState": false,
+        "sendStateWithoutChange": false,
+        "showTransitionErrors": true,
+        "x": 440,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "23f83d1641b6ca6a",
+        "type": "debug",
+        "z": "85ecac428367bed1",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "4585a50d9476e0e8",
+        "type": "inject",
+        "z": "85ecac428367bed1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "run",
+        "payload": "",
+        "payloadType": "str",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "7367f2ace9a51065"
+            ]
+        ]
+    },
+    {
+        "id": "78145cf07001d45a",
+        "type": "comment",
+        "z": "85ecac428367bed1",
+        "name": "sending topic \"toggleState\" toggles between the two states",
+        "info": "",
+        "x": 360,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "43d1ea5c4baf62a9",
+        "type": "mqtt in",
+        "z": "dc4958470e403265",
+        "name": "JSON in",
+        "topic": "dispenser",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "9c374d34624eca9c",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 160,
+        "wires": [
+            [
+                "549dcbe1bf48abe5"
+            ]
+        ]
+    },
+    {
+        "id": "529b5b46e0310a42",
+        "type": "debug",
+        "z": "dc4958470e403265",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "549dcbe1bf48abe5",
+        "type": "json",
+        "z": "dc4958470e403265",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 160,
+        "wires": [
+            [
+                "529b5b46e0310a42"
+            ]
+        ]
+    }
+]

@@ -1,0 +1,5 @@
+{
+  "status": "STARTING",
+  "type": "heightSensor",
+  "data": [100, 2000, 3000, 312, 23]
+}

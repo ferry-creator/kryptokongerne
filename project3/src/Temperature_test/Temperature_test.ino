@@ -88,4 +88,5 @@ void loop() {
   CSVprint(String(hic));
   CSVprint(String(f));
   CSVprint(String(hif));
+  Serial.println();
 }

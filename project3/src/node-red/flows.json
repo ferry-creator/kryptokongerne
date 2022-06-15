@@ -45,7 +45,7 @@
             },
             "darkTheme": {
                 "default": "#097479",
-                "baseColor": "#a48d79",
+                "baseColor": "#ae927a",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
                 "edited": true,
                 "reset": false
@@ -60,11 +60,11 @@
             "themeState": {
                 "base-color": {
                     "default": "#097479",
-                    "value": "#a48d79",
+                    "value": "#ae927a",
                     "edited": true
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#a48d79",
+                    "value": "#ae927a",
                     "edited": false
                 },
                 "page-backgroundColor": {
@@ -76,7 +76,7 @@
                     "edited": false
                 },
                 "group-textColor": {
-                    "value": "#c3b4a7",
+                    "value": "#cbb9aa",
                     "edited": false
                 },
                 "group-borderColor": {
@@ -92,7 +92,7 @@
                     "edited": false
                 },
                 "widget-backgroundColor": {
-                    "value": "#a48d79",
+                    "value": "#ae927a",
                     "edited": false
                 },
                 "widget-borderColor": {
@@ -142,7 +142,7 @@
     {
         "id": "70e4408fb7a5530a",
         "type": "ui_group",
-        "name": "Main",
+        "name": "Control",
         "tab": "9d49a9027f140f70",
         "order": 1,
         "disp": true,
@@ -176,16 +176,6 @@
         "willPayload": "",
         "willMsg": {},
         "sessionExpiry": ""
-    },
-    {
-        "id": "8b1c6d0afb05f24d",
-        "type": "ui_spacer",
-        "z": "fb94b5ca5ce751d5",
-        "name": "spacer",
-        "group": "70e4408fb7a5530a",
-        "order": 2,
-        "width": 1,
-        "height": 1
     },
     {
         "id": "9c374d34624eca9c",
@@ -241,6 +231,27 @@
         "sessionExpiry": ""
     },
     {
+        "id": "9cdb89835f4478cd",
+        "type": "ui_group",
+        "name": "System",
+        "tab": "9d49a9027f140f70",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2d1a4ce25790118e",
+        "type": "ui_spacer",
+        "z": "fb94b5ca5ce751d5",
+        "name": "spacer",
+        "group": "70e4408fb7a5530a",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
         "id": "8e6c4df65096e965",
         "type": "mqtt out",
         "z": "fb94b5ca5ce751d5",
@@ -253,7 +264,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "f7a6956cc03bf7dc",
+        "broker": "9c374d34624eca9c",
         "x": 1260,
         "y": 260,
         "wires": []
@@ -272,7 +283,7 @@
         "tooltip": "Begin the incubation process",
         "color": "",
         "bgcolor": "",
-        "className": "",
+        "className": "bigbtn",
         "icon": "{{msg.icon}}",
         "payload": "",
         "payloadType": "str",
@@ -291,17 +302,18 @@
         "type": "finite-state-machine",
         "z": "fb94b5ca5ce751d5",
         "name": "",
-        "fsmDefinition": "{\"state\":{\"status\":\"IDLE\"},\"transitions\":{\"IDLE\":{\"start\":{\"status\":\"STARTING\",\"data\":{\"climate\":null,\"initHeight\":null}}},\"STARTING\":{\"incubate\":\"INCUBATING\"},\"INCUBATING\":{\"stop\":{\"status\":\"IDLE\",\"data\":{\"climate\":0,\"initHeight\":null}},\"await\":\"AWAITING\"},\"AWAITING\":{\"stop\":{\"status\":\"IDLE\",\"data\":{\"climate\":0,\"initHeight\":null}}}}}",
+        "fsmDefinition": "{\"state\":{\"status\":\"IDLE\"},\"transitions\":{\"IDLE\":{\"start\":{\"status\":\"STARTING\",\"data\":{\"climate\":null,\"initHeight\":null}}},\"STARTING\":{\"incubate\":\"INCUBATING\"},\"INCUBATING\":{\"stop\":{\"status\":\"IDLE\",\"data\":{\"climate\":0,\"initHeight\":null}},\"await\":\"AWAITING\",\"awaitMixing\":\"AWAITINGMIXER\"},\"AWAITING\":{\"stop\":{\"status\":\"IDLE\",\"data\":{\"climate\":0,\"initHeight\":null}}},\"AWAITINGMIXER\":{\"confirmMixer\":\"CONFIRMMIXER\"},\"CONFIRMMIXER\":{\"mix\":\"MIXING\",\"awaitMixing\":\"AWAITINGMIXER\"},\"MIXING\":{\"stop\":{\"status\":\"IDLE\",\"data\":{\"climate\":0,\"initHeight\":null}}}}}",
         "sendInitialState": true,
         "sendStateWithoutChange": false,
         "showTransitionErrors": false,
-        "x": 430,
+        "x": 440,
         "y": 260,
         "wires": [
             [
                 "07a9f063f81029a9",
                 "285089553ed934e0",
-                "f8d0e68dfce860d4"
+                "f8d0e68dfce860d4",
+                "0b1ef48f40264bcf"
             ]
         ]
     },
@@ -321,7 +333,7 @@
         "topic": "topic",
         "topicType": "msg",
         "min": "-3",
-        "max": "3",
+        "max": "0",
         "step": 1,
         "className": "",
         "x": 650,
@@ -359,7 +371,7 @@
         "type": "function",
         "z": "fb94b5ca5ce751d5",
         "name": "btn controller",
-        "func": "const state = msg.payload.status\nif(state === \"IDLE\") {\n    \n}\nswitch(state) {\n    case \"IDLE\":\n        msg.label = \"Start\"\n        msg.topic = \"start\"\n        msg.icon  = \"fa-play\"\n        break\n    case \"STARTING\":\n        msg.label = \"... Starting\"\n        msg.topic = null\n        msg.icon  = null\n        break\n    case \"INCUBATING\":\n        msg.label = \"Stop\"\n        msg.topic = \"stop\"\n        msg.icon  = \"fa-stop\"\n        break\n    case \"AWAITING\":\n        msg.label = \"Finish\"\n        msg.topic = \"stop\"\n        msg.icon  = \"fa-stop\"\n        break\n}\nreturn msg",
+        "func": "const state = msg.payload.status\nif(state === \"IDLE\") {\n    \n}\nswitch(state) {\n    case \"IDLE\":\n        msg.label = \"Start\"\n        msg.topic = \"start\"\n        msg.icon  = \"fa-play\"\n        break\n    case \"STARTING\":\n        msg.label = \"... Starting\"\n        msg.topic = null\n        msg.icon  = null\n        break\n    case \"INCUBATING\":\n        msg.label = \"Stop\"\n        msg.topic = \"stop\"\n        msg.icon  = \"fa-stop\"\n        break\n    case \"AWAITING\":\n        msg.label = \"Finish\"\n        msg.topic = \"stop\"\n        msg.icon  = \"fa-stop\"\n        break\n    case \"AWAITINGMIXER\":\n        msg.label = \"Mix\"\n        msg.topic = \"confirmMixer\"\n        msg.icon  = \"fa-play\"\n        break\n    case \"MIXING\":\n        msg.label = \"... Mixing\"\n        msg.topic = null\n        msg.icon  = null\n        break\n}\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -399,8 +411,8 @@
         "id": "b0e0f5549072bb7b",
         "type": "ui_text",
         "z": "fb94b5ca5ce751d5",
-        "group": "70e4408fb7a5530a",
-        "order": 3,
+        "group": "9cdb89835f4478cd",
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "",
@@ -434,7 +446,7 @@
         "type": "function",
         "z": "fb94b5ca5ce751d5",
         "name": "Switch on State",
-        "func": "const status = msg.payload\nswitch(status) {\n    case \"IDLE\":\n        msg.payload = {}\n        global.set(\"initialHeight\") //remove\n        break\n    case \"STARTING\":\n        msg.payload = {\n            \"type\": \"heightSensor\",\n            \"freq\": 1000,\n            \"reps\": 5\n        }\n        break\n    case \"INCUBATING\":\n        msg.payload = {}\n        break\n}\nmsg.payload = {status, ...msg.payload}\nreturn msg",
+        "func": "const status = msg.payload\nmsg.payload = {status}\nswitch(status) {\n    case \"IDLE\":\n        global.set(\"initialHeight\") //remove\n        break\n    case \"STARTING\":\n        msg.payload = {\n            ...msg.payload,\n            \"type\": \"heightSensor\",\n            \"freq\": 1000,\n            \"reps\": 5\n        }\n        return msg\n    case \"MIXING\":\n        msg.payload = {\n            ...msg.payload,\n            \"type\": \"water\",\n            \"freq\": 1000\n        }\n        return msg\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -453,7 +465,7 @@
         "type": "range",
         "z": "fb94b5ca5ce751d5",
         "minin": "-3",
-        "maxin": "3",
+        "maxin": "0",
         "minout": "0",
         "maxout": "255",
         "action": "scale",
@@ -476,7 +488,8 @@
         "name": "to FSM",
         "links": [
             "3220b7c04f7e1c4f",
-            "a44c8c471d412813"
+            "a44c8c471d412813",
+            "3f2d2519b1c7aeb2"
         ],
         "x": 225,
         "y": 320,
@@ -530,7 +543,8 @@
         "mode": "link",
         "links": [
             "e403a6a211141d16",
-            "9e4d5113bec38786"
+            "9e4d5113bec38786",
+            "3b4372046427c2ed"
         ],
         "x": 725,
         "y": 320,
@@ -578,7 +592,7 @@
         "z": "fb94b5ca5ce751d5",
         "name": "",
         "pauseType": "delay",
-        "timeout": "10",
+        "timeout": "5",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -598,6 +612,116 @@
         ]
     },
     {
+        "id": "b13503fa4d29470b",
+        "type": "link in",
+        "z": "fb94b5ca5ce751d5",
+        "name": "to MQTT",
+        "links": [
+            "df0a1944aef5cbbc"
+        ],
+        "x": 885,
+        "y": 220,
+        "wires": [
+            [
+                "89c8c7c453f515ef"
+            ]
+        ]
+    },
+    {
+        "id": "0582092818823cc1",
+        "type": "ui_toast",
+        "z": "fb94b5ca5ce751d5",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "Cancel",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "Confirm mixing?",
+        "x": 340,
+        "y": 480,
+        "wires": [
+            [
+                "1fc58cac893430af"
+            ]
+        ]
+    },
+    {
+        "id": "0b1ef48f40264bcf",
+        "type": "function",
+        "z": "fb94b5ca5ce751d5",
+        "name": "Confirm mixing process?",
+        "func": "const state = msg.payload.status\nif(state === \"CONFIRMMIXER\") {\n    msg.payload = \"Did you place the cup securely in the machine?\"\n    return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 230,
+        "y": 540,
+        "wires": [
+            [
+                "0582092818823cc1"
+            ]
+        ]
+    },
+    {
+        "id": "1fc58cac893430af",
+        "type": "function",
+        "z": "fb94b5ca5ce751d5",
+        "name": "Confirm?",
+        "func": "if(msg.payload === \"OK\") {\n    msg.topic = \"mix\"\n} else {\n    msg.topic = \"awaitMixing\"\n}\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 380,
+        "wires": [
+            [
+                "bafe0708f4376ee4"
+            ]
+        ]
+    },
+    {
+        "id": "d83fd753f623ec1e",
+        "type": "status",
+        "z": "fb94b5ca5ce751d5",
+        "name": "MQQT out",
+        "scope": [
+            "8e6c4df65096e965"
+        ],
+        "x": 920,
+        "y": 480,
+        "wires": [
+            [
+                "cb1be362902ded7f"
+            ]
+        ]
+    },
+    {
+        "id": "cb1be362902ded7f",
+        "type": "ui_text",
+        "z": "fb94b5ca5ce751d5",
+        "group": "9cdb89835f4478cd",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "MQQT out",
+        "format": "{{msg.status.text}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 1090,
+        "y": 480,
+        "wires": []
+    },
+    {
         "id": "18f700adc5b1f454",
         "type": "mqtt in",
         "z": "a00d9ff1d49b324a",
@@ -605,13 +729,13 @@
         "topic": "node-red",
         "qos": "2",
         "datatype": "auto",
-        "broker": "42de78205b9c9f26",
+        "broker": "9c374d34624eca9c",
         "nl": false,
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 240,
-        "y": 120,
+        "x": 220,
+        "y": 200,
         "wires": [
             [
                 "cd59e4d77b8bf366"
@@ -630,8 +754,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 870,
-        "y": 120,
+        "x": 590,
+        "y": 160,
         "wires": []
     },
     {
@@ -642,8 +766,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 370,
-        "y": 120,
+        "x": 350,
+        "y": 200,
         "wires": [
             [
                 "37e347cdf570ceaf",
@@ -662,8 +786,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 880,
-        "y": 340,
+        "x": 1060,
+        "y": 460,
         "wires": [
             [
                 "3220b7c04f7e1c4f",
@@ -682,13 +806,14 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
-        "y": 340,
+        "x": 830,
+        "y": 460,
         "wires": [
             [
                 "15413418d4091d69",
                 "477b95154ade860d",
-                "13b14380afa66727"
+                "13b14380afa66727",
+                "fa758a25cef4086c"
             ]
         ]
     },
@@ -713,11 +838,11 @@
         "topic": "",
         "payload": "{\"status\":\"STARTING\",\"type\":\"heightSensor\",\"data\":[100,2000,3000,312,23]}",
         "payloadType": "json",
-        "x": 310,
+        "x": 290,
         "y": 300,
         "wires": [
             [
-                "93f59d9c904345cd"
+                "9371853bdb3f3e5c"
             ]
         ]
     },
@@ -734,8 +859,8 @@
         "format": "{{msg.payload.mean}}",
         "layout": "row-left",
         "className": "",
-        "x": 850,
-        "y": 400,
+        "x": 1030,
+        "y": 520,
         "wires": []
     },
     {
@@ -747,8 +872,8 @@
         "links": [
             "0df9330c4d91f7ad"
         ],
-        "x": 1025,
-        "y": 340,
+        "x": 1205,
+        "y": 460,
         "wires": []
     },
     {
@@ -772,11 +897,11 @@
         "topic": "",
         "payload": "{\"status\":\"INCUBATING\",\"type\":\"heightSensor\",\"data\":[2174,2174,2174,2174,2174]}",
         "payloadType": "json",
-        "x": 250,
+        "x": 230,
         "y": 380,
         "wires": [
             [
-                "93f59d9c904345cd"
+                "9371853bdb3f3e5c"
             ]
         ]
     },
@@ -793,8 +918,8 @@
         "format": "{{msg.payload.mean}}",
         "layout": "row-left",
         "className": "",
-        "x": 1010,
-        "y": 460,
+        "x": 1190,
+        "y": 580,
         "wires": []
     },
     {
@@ -805,8 +930,8 @@
         "links": [
             "c642f5bd0ebd4cd5"
         ],
-        "x": 485,
-        "y": 460,
+        "x": 665,
+        "y": 580,
         "wires": [
             [
                 "3381fcd1b836671f"
@@ -824,12 +949,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 630,
-        "y": 460,
+        "x": 810,
+        "y": 580,
         "wires": [
             [
                 "477b95154ade860d",
-                "6dac218bbfa3b032"
+                "6dac218bbfa3b032",
+                "fa758a25cef4086c"
             ]
         ]
     },
@@ -838,14 +964,14 @@
         "type": "function",
         "z": "a00d9ff1d49b324a",
         "name": "Check if height has doubled",
-        "func": "if(msg.payload.status === \"INCUBATING\") {\n    const initialHeight = global.get(\"initialHeight\")\n    const currentHeight = msg.payload.mean\n    if( currentHeight >= initialHeight * 2) {\n        msg.payload = \"Sourdough is ready!\"\n        return msg;\n    }\n}",
+        "func": "if(msg.payload.status === \"INCUBATING\") {\n    const initialHeight = global.get(\"initialHeight\")\n    const currentHeight = msg.payload.mean\n    if( currentHeight >= initialHeight * 2) {\n        const baking = flow.get(\"baking\")\n        if(baking) {\n            msg.payload = \"Sourdough is ready!\"\n        } else {\n            msg.payload = \"Remove sourdough until 10g left, then press mix\"\n        }\n        return msg;\n    }\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 920,
-        "y": 260,
+        "x": 1100,
+        "y": 400,
         "wires": [
             [
                 "6be2b23545cc45f6"
@@ -867,11 +993,12 @@
         "className": "",
         "topic": "",
         "name": "Sourdough ready",
-        "x": 1150,
-        "y": 260,
+        "x": 1330,
+        "y": 400,
         "wires": [
             [
-                "33a4df7145e44607"
+                "33a4df7145e44607",
+                "76138530ea2bd048"
             ]
         ]
     },
@@ -896,11 +1023,11 @@
         "topic": "",
         "payload": "{\"status\":\"INCUBATING\",\"type\":\"heightSensor\",\"data\":[100,2000,3256,3120,230]}",
         "payloadType": "json",
-        "x": 300,
+        "x": 280,
         "y": 340,
         "wires": [
             [
-                "93f59d9c904345cd"
+                "9371853bdb3f3e5c"
             ]
         ]
     },
@@ -909,14 +1036,14 @@
         "type": "function",
         "z": "a00d9ff1d49b324a",
         "name": "go to AWAITING if \"OK\"",
-        "func": "if(msg.payload === \"OK\") {\n    msg.topic = \"await\"\n    return msg\n}",
+        "func": "if(msg.payload === \"OK\") {\n    const baking = flow.get(\"baking\")\n    if(baking) {\n        msg.topic = \"await\"\n    } else {\n        msg.topic = \"awaitMixing\"\n    }\n    return msg\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1370,
-        "y": 260,
+        "x": 1570,
+        "y": 400,
         "wires": [
             [
                 "a44c8c471d412813"
@@ -932,8 +1059,8 @@
         "links": [
             "0df9330c4d91f7ad"
         ],
-        "x": 1525,
-        "y": 260,
+        "x": 1715,
+        "y": 400,
         "wires": []
     },
     {
@@ -946,25 +1073,416 @@
         "rules": [
             {
                 "t": "eq",
-                "v": "heightSensor",
+                "v": "flour",
                 "vt": "str"
             },
             {
                 "t": "eq",
-                "v": "flour",
+                "v": "water",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "heightSensor",
                 "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 2,
-        "x": 490,
-        "y": 220,
+        "outputs": 3,
+        "x": 570,
+        "y": 300,
         "wires": [
             [
-                "93f59d9c904345cd"
+                "0615678f75f17b16"
             ],
+            [
+                "0615678f75f17b16"
+            ],
+            [
+                "93f59d9c904345cd"
+            ]
+        ]
+    },
+    {
+        "id": "908b2c7b5d370f70",
+        "type": "ui_switch",
+        "z": "a00d9ff1d49b324a",
+        "name": "",
+        "label": "Baking",
+        "tooltip": "",
+        "group": "70e4408fb7a5530a",
+        "order": 3,
+        "width": "2",
+        "height": "1",
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 410,
+        "y": 80,
+        "wires": [
+            [
+                "9425d50e3d36405a"
+            ]
+        ]
+    },
+    {
+        "id": "9425d50e3d36405a",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "set \"baking\" flow var",
+        "func": "flow.set(\"baking\", msg.payload)",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nconst getValue = flow.get(\"baking\")\nif(!getValue) {\n    flow.set(\"baking\", true)\n}",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "3b4372046427c2ed",
+        "type": "link in",
+        "z": "a00d9ff1d49b324a",
+        "name": "State change",
+        "links": [
+            "c642f5bd0ebd4cd5"
+        ],
+        "x": 175,
+        "y": 80,
+        "wires": [
+            [
+                "a4d9c8ac6539685e"
+            ]
+        ]
+    },
+    {
+        "id": "a4d9c8ac6539685e",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Reset sw",
+        "func": "if(msg.payload === \"IDLE\") {\n    msg.payload = true\n    return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 80,
+        "wires": [
+            [
+                "908b2c7b5d370f70"
+            ]
+        ]
+    },
+    {
+        "id": "7b63ce8968e3a274",
+        "type": "inject",
+        "z": "a00d9ff1d49b324a",
+        "name": "water [MIXING]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"status\":\"MIXING\",\"type\":\"water\",\"response\":\"OK\"}",
+        "payloadType": "json",
+        "x": 320,
+        "y": 420,
+        "wires": [
+            [
+                "9371853bdb3f3e5c"
+            ]
+        ]
+    },
+    {
+        "id": "bf2056fccb30ae88",
+        "type": "inject",
+        "z": "a00d9ff1d49b324a",
+        "name": "flour [MIXING]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"status\":\"MIXING\",\"type\":\"flour\",\"response\":\"OK\"}",
+        "payloadType": "json",
+        "x": 330,
+        "y": 460,
+        "wires": [
+            [
+                "9371853bdb3f3e5c"
+            ]
+        ]
+    },
+    {
+        "id": "0615678f75f17b16",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Is OK?",
+        "func": "const { response } = msg.payload\nif(response === \"OK\") {\n    return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 300,
+        "wires": [
+            [
+                "41dce046f5b2115c",
+                "2261ae9763229f01"
+            ]
+        ]
+    },
+    {
+        "id": "df0a1944aef5cbbc",
+        "type": "link out",
+        "z": "a00d9ff1d49b324a",
+        "name": "to MQTT",
+        "mode": "link",
+        "links": [
+            "b13503fa4d29470b"
+        ],
+        "x": 1455,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "41dce046f5b2115c",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Is water?",
+        "func": "const { type } = msg.payload\nif(type === \"water\") {\n    return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 240,
+        "wires": [
+            [
+                "47a524ce435c38e0"
+            ]
+        ]
+    },
+    {
+        "id": "47a524ce435c38e0",
+        "type": "delay",
+        "z": "a00d9ff1d49b324a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1190,
+        "y": 240,
+        "wires": [
+            [
+                "8b03a0f9cf5b887b"
+            ]
+        ]
+    },
+    {
+        "id": "8b03a0f9cf5b887b",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "flour JSON",
+        "func": "const status = msg.payload.status\nmsg.payload = {\n    status,\n    \"type\": \"flour\",\n    \"freq\": 1000,\n    \"reps\": 2\n}\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 240,
+        "wires": [
+            [
+                "df0a1944aef5cbbc"
+            ]
+        ]
+    },
+    {
+        "id": "3f2d2519b1c7aeb2",
+        "type": "link out",
+        "z": "a00d9ff1d49b324a",
+        "name": "to FSM",
+        "mode": "link",
+        "links": [
+            "0df9330c4d91f7ad"
+        ],
+        "x": 1375,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "cf8033cb5d04653d",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Send \"stop\" to FSM",
+        "func": "msg.topic = \"stop\"\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 300,
+        "wires": [
+            [
+                "3f2d2519b1c7aeb2"
+            ]
+        ]
+    },
+    {
+        "id": "2261ae9763229f01",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Is flour?",
+        "func": "const { type } = msg.payload\nif(type === \"flour\") {\n    return msg\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 300,
+        "wires": [
+            [
+                "cf8033cb5d04653d"
+            ]
+        ]
+    },
+    {
+        "id": "4f809c32d63e5b21",
+        "type": "status",
+        "z": "a00d9ff1d49b324a",
+        "name": "MQQT in",
+        "scope": [
+            "18f700adc5b1f454"
+        ],
+        "x": 820,
+        "y": 80,
+        "wires": [
+            [
+                "cb6a8fb0fce8206f"
+            ]
+        ]
+    },
+    {
+        "id": "cb6a8fb0fce8206f",
+        "type": "ui_text",
+        "z": "a00d9ff1d49b324a",
+        "group": "9cdb89835f4478cd",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "MQQT in",
+        "format": "{{msg.status.text}}",
+        "layout": "row-left",
+        "className": "",
+        "x": 980,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "057b8e446aae360f",
+        "type": "ui_template",
+        "z": "a00d9ff1d49b324a",
+        "group": "70e4408fb7a5530a",
+        "name": "Progress Bar",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "format": "<div class=\"progressbar\">\n    <div class=\"progress\" style={{msg.rainbow}}>\n        <b><span>{{msg.percent}}%</span></b>\n    </div>\n</div>\n\n<style>\n    @-webkit-keyframes AnimationName {\n        0%{background-position:0% 50%}\n        50%{background-position:100% 50%}\n        100%{background-position:0% 50%}\n    }\n    @-moz-keyframes AnimationName {\n        0%{background-position:0% 50%}\n        50%{background-position:100% 50%}\n        100%{background-position:0% 50%}\n    }\n    @keyframes AnimationName {\n        0%{background-position:0% 50%}\n        50%{background-position:100% 50%}\n        100%{background-position:0% 50%}\n    }\n    .progressbar {\n        background: #5f6165;\n        width: 100%;\n        height: 20px;\n        border-radius: 2px;\n    }\n    .progress {\n        background: #ae9279;\n        height: 100%;\n        width: {{msg.percent}}%;\n        border-radius: inherit;\n        animation-name: MOVE-BG;\n        animation-duration: 100s;\n        animation-timing-function: linear;\n        animation-iteration-count: infinite;\n    }\n    \n    span {\n        margin-left: 10px;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1590,
+        "y": 640,
+        "wires": [
             []
+        ]
+    },
+    {
+        "id": "fa758a25cef4086c",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Get Percent",
+        "func": "const initialHeight = global.get(\"initialHeight\")\nif(initialHeight) {\n    const currentHeight = msg.payload.mean\n    const ratio =  currentHeight / initialHeight\n    msg.percent = (ratio-1) * 100\n} else {\n    msg.percent = 0\n}\nmsg.percent = parseInt(msg.percent)\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 640,
+        "wires": [
+            [
+                "057b8e446aae360f"
+            ]
+        ]
+    },
+    {
+        "id": "76138530ea2bd048",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Make Rainbow",
+        "func": "if(msg.payload === \"OK\") {\n    const baking = flow.get(\"baking\")\n    if(baking) {\n        msg.rainbow = \"background: linear-gradient(270deg, #ff0058, #ce63ff, #0011ff, #00dbff, #00ff7a, #94ff00, #ffe300);background-size: 1400% 1400%;-webkit-animation: AnimationName 500ms linear infinite;-moz-animation: AnimationName 500ms linear infinite;animation: AnimationName 500ms linear infinite;\"\n        return msg\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1460,
+        "y": 520,
+        "wires": [
+            [
+                "057b8e446aae360f"
+            ]
         ]
     },
     {

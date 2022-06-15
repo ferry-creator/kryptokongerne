@@ -15,6 +15,8 @@
 
 #include "DHT.h"
 
+#define NUMITEMS(arg) ((unsigned int) (sizeof (arg) / sizeof (arg [0])))
+
 #define DHTPIN 10     // Digital pin connected to the DHT sensor
 
 #define DHTTYPE DHT11   // DHT 11
@@ -35,9 +37,25 @@
 
 DHT dht(DHTPIN, DHTTYPE);
 
+void CSVprint(String msg) {
+	Serial.print(msg + ',');
+}
+
+String CSVheaders[] = {
+	"Humidity",
+	"Temperature (C)",
+	"Heat index (C)",
+  "Temperature (F)",
+  "Heat index (F)"
+};
+
 void setup() {
   Serial.begin(9600);
-  Serial.println(F("DHTxx test!"));
+
+  for (int i = 0; i < NUMITEMS(CSVheaders); i++) {
+		CSVprint(CSVheaders[i]);
+	}
+	Serial.println();
 
   dht.begin();
 }
@@ -65,15 +83,9 @@ void loop() {
   // Compute heat index in Celsius (isFahreheit = false)
   float hic = dht.computeHeatIndex(t, h, false);
 
-  Serial.print(F(" Humidity: "));
-  Serial.print(h);
-  Serial.print(F("%  Temperature: "));
-  Serial.print(t);
-  Serial.print(F("C "));
-  Serial.print(f);
-  Serial.print(F("F  Heat index: "));
-  Serial.print(hic);
-  Serial.print(F("C "));
-  Serial.print(hif);
-  Serial.println(F("F"));
+  CSVprint(String(h));
+  CSVprint(String(t));
+  CSVprint(String(hic));
+  CSVprint(String(f));
+  CSVprint(String(hif));
 }

@@ -42,6 +42,7 @@ void CSVprint(String msg) {
 }
 
 String CSVheaders[] = {
+  "Time",
 	"Humidity",
 	"Temperature (C)",
 	"Heat index (C)",
@@ -83,6 +84,9 @@ void loop() {
   // Compute heat index in Celsius (isFahreheit = false)
   float hic = dht.computeHeatIndex(t, h, false);
 
+  long seconds = millis() / 1000L;
+
+  CSVprint(String(seconds));
   CSVprint(String(h));
   CSVprint(String(t));
   CSVprint(String(hic));

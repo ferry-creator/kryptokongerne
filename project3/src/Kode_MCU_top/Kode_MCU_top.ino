@@ -30,8 +30,8 @@ const char *mqtt_pass = "Zwu25yVhkqBN"; // Definerer koden til mqtt-brugeren
 String payload; // Definerer variablen 'payload' i det globale scope (payload er navnet på besked-variablen)
 
 //Defining pins for Sensor
-const int inRange_trigPin = 23;
-const int inRange_echoPin = 22;
+const int inRange_trigPin = 27;
+const int inRange_echoPin = 26;
 
 
 
@@ -146,7 +146,7 @@ void callback(char* topic, byte* Payload, unsigned int length) {
       if ((doc["type"])== "water") {
         doc2["type"] = "water";
         doc2["response"] = "OK";
-        // Definerer funktion ved indput mix
+        // Definerer funktion ved indput water
         delay(2000);
         // Turn the motor in one direction
         digitalWrite(motorPin1, LOW); 

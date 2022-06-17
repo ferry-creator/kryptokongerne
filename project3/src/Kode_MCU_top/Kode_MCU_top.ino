@@ -109,7 +109,7 @@ void callback(char* topic, byte* Payload, unsigned int length);
 WiFiClient espClient; // Initialiserer wifi bibloteket ESP8266Wifi, som er inkluderet under "nødvendige bibloteker"
 
 // Opretter forbindelse til mqtt klienten:
-PubSubClient client(MQQT.host, MQQT.port, callback, espClient); // Initialiserer bibloteket for at kunne modtage og sende beskeder til mqtt. Den henter fra definerede mqtt server og port. Den henter fra topic og beskeden payload
+PubSubClient client(MQTT.host, MQTT.port, callback, espClient); // Initialiserer bibloteket for at kunne modtage og sende beskeder til mqtt. Den henter fra definerede mqtt server og port. Den henter fra topic og beskeden payload
 
 /////// FUNKTIONSOPSÆTNING SLUT /////////
 
@@ -302,7 +302,7 @@ void setup() {
   pinMode(inRange_trigPin, OUTPUT);
   pinMode(inRange_echoPin, INPUT);
   setup_wifi(); // Kører WiFi loopet og forbinder herved.
-  client.setServer(mqtt_server, mqtt_port); // Forbinder til mqtt serveren (defineret længere oppe)
+  client.setServer(MQTT.host, MQTT.port); // Forbinder til mqtt serveren (defineret længere oppe)
   client.setCallback(callback); // Ingangsætter den definerede callback funktion hver gang der er en ny besked på den subscribede "cmd"- topic
 
 

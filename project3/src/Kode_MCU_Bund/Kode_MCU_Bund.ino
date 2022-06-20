@@ -35,6 +35,8 @@ const mqttBroker maqiatto  = { maqia_host, maqia_user, maqia_pass, maqia_port };
 
 // Change this to change broker
 const mqttBroker MQTT = maqiatto;
+// set true for hiveMQ
+const SSL_ENABLED = false
 
 //////////// HiveMQ TSL ///////////
 const char* root_ca= \
@@ -121,8 +123,12 @@ void callback(char* topic, byte* Payload, unsigned int length);
 // Opretter en klient der kan forbinde til en specifik internet IP adresse.
 WiFiClient espClient; // Initialiserer wifi bibloteket ESP8266Wifi, som er inkluderet under "nødvendige bibloteker"
 
+if(SSL_ENABLED) {
+  espClient.setCACert(root_ca)
+}
+
 // Opretter forbindelse til mqtt klienten:
-PubSubClient client(MQTT.host, MQTT.port, callback, espClient);; // Initialiserer bibloteket for at kunne modtage og sende beskeder til mqtt. Den henter fra definerede mqtt server og port. Den henter fra topic og beskeden payload
+PubSubClient client(MQTT.host, MQTT.port, callback, espClient); // Initialiserer bibloteket for at kunne modtage og sende beskeder til mqtt. Den henter fra definerede mqtt server og port. Den henter fra topic og beskeden payload
 
 /////// FUNKTIONSOPSÆTNING SLUT /////////
 

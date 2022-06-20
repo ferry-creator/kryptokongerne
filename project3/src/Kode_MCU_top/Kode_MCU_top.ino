@@ -128,7 +128,7 @@ void callback(char* topic, byte* Payload, unsigned int length) {
   StaticJsonDocument<256> doc;
   deserializeJson(doc, Payload, length);
   StaticJsonDocument<256> doc2;
-  doc2["STATUS"] = doc["STATUS"];
+  doc2["status"] = doc["status"];
 
   // Konverterer indkomne besked (topic) til en string:
   Serial.print("Message arrived [");
@@ -148,7 +148,7 @@ void callback(char* topic, byte* Payload, unsigned int length) {
       payload += (char)byteArrayPayload[i];
       // For-loop: tag hvert tegn i hele længden af den inkomne besked, og konverter denne til en char. Append tegnene 1 efter 1:
       // Eksempel:
-      // Besked = Study Abroad
+      // Besked = Study Abroad 
       // Length = 12
       // Loop 1 = "S"
       // Loop 2 = "St" osv.
@@ -173,7 +173,7 @@ void callback(char* topic, byte* Payload, unsigned int length) {
           }
         char buffer[256];
         int b=serializeJson(doc2, buffer);
-        client.publish("node-red", buffer);
+        client.publish("s203773@student.dtu.dk/node-red", buffer);
         Serial.print(b);            
         }
       
@@ -182,19 +182,19 @@ void callback(char* topic, byte* Payload, unsigned int length) {
         delay(2000);  
         doc2["type"] = "flour";
         doc2["response"] = "OK";
-        for (int j = 0; j <= doc["reps"]; j++) {
+        for (int j = 0; j < doc["reps"]; j++) {
           servo.write(0);
-          delay(500);
-          delay(5000);
+          delay(200);
+          delay(2000);
           servo.write(90);
           delay(200);
-          delay(5000);
+          delay(2000);
           servo.write(0);
           delay(doc["freq"]);
         }
         char buffer[256];
         int b=serializeJson(doc2, buffer);
-        client.publish("node-red", buffer);
+        client.publish("s203773@student.dtu.dk/node-red", buffer);
         Serial.print(b);   
       }
         
@@ -202,7 +202,7 @@ void callback(char* topic, byte* Payload, unsigned int length) {
         doc2["type"] = "water";
         doc2["response"] = "OK";
         // Definerer funktion ved indput water
-        delay(2000);
+        delay(1000);
         // Turn the motor in one direction
         digitalWrite(motorPin1, LOW); 
         digitalWrite(motorPin2, HIGH); 
@@ -213,7 +213,7 @@ void callback(char* topic, byte* Payload, unsigned int length) {
         delay(1000);    
         char buffer[256];
         int b=serializeJson(doc2, buffer);
-        client.publish("node-red", buffer);
+        client.publish("s203773@student.dtu.dk/node-red", buffer);
         Serial.print(b);   
    
   }
@@ -262,7 +262,7 @@ void reconnect() {
     if (client.connect("krypto", MQTT.user, MQTT.pass)) { // Forbinder til klient med mqtt bruger og password
       Serial.println("connected");
       // Derudover subsribes til topic "Test" hvor NodeMCU modtager payload beskeder fra
-      client.subscribe("dispenser");
+      client.subscribe("s203773@student.dtu.dk/MCU");
       // Der kan subscribes til flere specifikke topics
       //client.subscribe("Test1");
       // Eller til samtlige topics ved at bruge '#' (Se Power Point fra d. 18. marts)
@@ -294,7 +294,7 @@ void setup() {
   Serial.begin(115200); // Åbner serial porten og sætter data raten til 115200 baud
   delay(1000);
   //setting servo pin to pin 2
-  servo.attach(2);
+  servo.attach(25);
   // Set the pin modes of the motor pins to OUTPUT
   pinMode(motorPin1, OUTPUT);
   pinMode(motorPin2, OUTPUT);

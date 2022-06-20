@@ -7,6 +7,69 @@
 #include <SPI.h>
 #include <ArduinoJson.h>
 
+#define hivemq_host "d442f1008e514e098cb3126d115cb356.s1.eu.hivemq.cloud"
+#define hivemq_user "krypto"
+#define hivemq_pass "hivemq1234"
+#define hivemq_port 8883
+
+#define cloudmqtt_host "hairdresser.cloudmqtt.com"
+#define cloudmqtt_user "jnyhgkwt"
+#define cloudmqtt_pass "Zwu25yVhkqBN"
+#define cloudmqtt_port 15687
+
+#define maqia_host "maqiatto.com"
+#define maqia_user "s203773@student.dtu.dk"
+#define maqia_pass "alex123"
+#define maqia_port 1883
+
+struct mqttBroker {
+  char *host;
+  char *user;
+  char *pass;
+  int   port;
+};
+
+const mqttBroker cloudmqtt = { cloudmqtt_host, cloudmqtt_user, cloudmqtt_pass, cloudmqtt_port };
+const mqttBroker hivemq    = { hivemq_host, hivemq_user, hivemq_pass, hivemq_port };
+const mqttBroker maqiatto  = { maqia_host, maqia_user, maqia_pass, maqia_port };
+
+// Change this to change broker
+const mqttBroker MQTT = maqiatto;
+
+//////////// HiveMQ TSL ///////////
+const char* root_ca= \
+     "-----BEGIN CERTIFICATE-----\n" \
+     "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\n" \
+     "nLRbwHOoq7hHwg==\n" \
+     "-----END CERTIFICATE-----\n";
+
+int getIncubationSpeed = 0;
 
 //Defining pins for pump
 int motorPin1 = 12;
@@ -17,17 +80,10 @@ int motorPin2 = 14;
 const char* ssid = "OnePlus 7"; //Indsæt navnet på jeres netværk her
 const char* password = "55012bceb395"; //Indsæt password her
 
-// Definerer information til mqtt serveren
-const char *mqtt_server = "hairdresser.cloudmqtt.com"; //navn på mqtt-server. Find navnet på cloudmqtt-hjemmesiden
-const int mqtt_port = 15687; // Definerer porten
-const char *mqtt_user = "jnyhgkwt"; // Definerer mqtt-brugeren
-const char *mqtt_pass = "Zwu25yVhkqBN"; // Definerer koden til mqtt-brugeren
-//
-
 String payload; // Definerer variablen 'payload' i det globale scope (payload er navnet på besked-variablen)
 
 //Defining pin for temp coltrol
-const int tempPin = 4;
+const int tempPin = 12;
 
 #include "DHT.h"
 
@@ -39,10 +95,10 @@ const int tempPin = 4;
 
 DHT dht(DHTPIN, DHTTYPE);
 
-#define A 6
-#define B 3
-#define C 4
-#define D 7
+#define A 33
+#define B 25
+#define C 26
+#define D 27
 
 #define NUMBER_OF_STEPS_PER_REV 512
 
@@ -66,7 +122,7 @@ void callback(char* topic, byte* Payload, unsigned int length);
 WiFiClient espClient; // Initialiserer wifi bibloteket ESP8266Wifi, som er inkluderet under "nødvendige bibloteker"
 
 // Opretter forbindelse til mqtt klienten:
-PubSubClient client(mqtt_server, mqtt_port, callback, espClient); // Initialiserer bibloteket for at kunne modtage og sende beskeder til mqtt. Den henter fra definerede mqtt server og port. Den henter fra topic og beskeden payload
+PubSubClient client(MQTT.host, MQTT.port, callback, espClient);; // Initialiserer bibloteket for at kunne modtage og sende beskeder til mqtt. Den henter fra definerede mqtt server og port. Den henter fra topic og beskeden payload
 
 /////// FUNKTIONSOPSÆTNING SLUT /////////
 
@@ -154,17 +210,21 @@ void callback(char* topic, byte* Payload, unsigned int length) {
         Serial.print(b);   
       }
  */       
-      if ((doc["type"])== "motorMixing") {
-        doc2["type"] = "mixConfirm";
+      if ((doc["type"])== "Mix") {
+        doc2["type"] = "Mix";
+        doc2["response"] = "OK";
         // Definerer funktion ved indput mix
         int i;
         i=0;
         while(i<NUMBER_OF_STEPS_PER_REV){
-        onestep();
-        i++;
+          onestep();
+          i++;
+          }
         delay(doc["freq"]);
-     }
-   
+        char buffer[256];
+        int b=serializeJson(doc2, buffer);
+        client.publish("s203773@student.dtu.dk/node-red", buffer);
+        Serial.print(b);       
   }
   
      if ((doc["type"])== "climate") {
@@ -173,11 +233,12 @@ void callback(char* topic, byte* Payload, unsigned int length) {
         digitalWrite(tempPin, HIGH);
         if(doc["incubationSpeed"] == 255) return; 
         // Definerer funktion ved indput climate
-        int getIncubationSpeed = (int) doc["incubationSpeed"];
-        delay(30000/(getIncubationSpeed+1));
-        digitalWrite(tempPin, LOW); 
-        delay(getIncubationSpeed*5);
-        digitalWrite(tempPin, HIGH);          
+        getIncubationSpeed = (int) doc["incubationSpeed"];      
+        char buffer[256];
+        int b=serializeJson(doc2, buffer);
+        client.publish("s203773@student.dtu.dk/node-red", buffer);
+        Serial.print(b);       
+      
       }
       
 
@@ -269,10 +330,10 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Forsøger at oprette MQTT forbindelse...");
 
-    if (client.connect("krypto2", mqtt_user, mqtt_pass)) { // Forbinder til klient med mqtt bruger og password
+    if (client.connect("krypto2", MQTT.user, MQTT.pass)) { // Forbinder til klient med mqtt bruger og password
       Serial.println("connected");
       // Derudover subsribes til topic "Test" hvor NodeMCU modtager payload beskeder fra
-      client.subscribe("dispenser");
+      client.subscribe("s203773@student.dtu.dk/MCU");
       // Der kan subscribes til flere specifikke topics
       //client.subscribe("Test1");
       // Eller til samtlige topics ved at bruge '#' (Se Power Point fra d. 18. marts)
@@ -338,7 +399,7 @@ void setup() {
   pinMode(tempPin, OUTPUT);
   // Set the pin modes of the trig and ecco pins to Output and input
   setup_wifi(); // Kører WiFi loopet og forbinder herved.
-  client.setServer(mqtt_server, mqtt_port); // Forbinder til mqtt serveren (defineret længere oppe)
+  client.setServer(MQTT.host, MQTT.port); // Forbinder til mqtt serveren (defineret længere oppe)
   client.setCallback(callback); // Ingangsætter den definerede callback funktion hver gang der er en ny besked på den subscribede "cmd"- topic
 
 
@@ -355,14 +416,17 @@ void setup() {
 /////// LOOP /////////
 
 void loop() {
-
+  delay(getIncubationSpeed*20);
+  digitalWrite(tempPin, LOW); 
+  delay(30000/(getIncubationSpeed+1));
+  digitalWrite(tempPin, HIGH);     
+  delay(1000);
   // Hvis der opstår problemer med forbindelsen til mqtt broker oprettes forbindelse igen ved at køre client loop
   if (!client.connected()) {
     reconnect();
   }
   client.loop();
 
-  delay(1000);
 }
 
 //////// Loop slut ////////

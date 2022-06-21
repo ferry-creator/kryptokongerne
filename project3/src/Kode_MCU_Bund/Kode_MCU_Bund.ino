@@ -179,7 +179,7 @@ void callback(char* topic, byte* Payload, unsigned int length) {
     if(doc["enable"] == false) return;
     if(doc["incubationSpeed"] == 0) return;
     if(doc["incubationSpeed"] == 255) {
-      digitalWrite(tempPin, HIGH);
+    digitalWrite(tempPin, HIGH);
     }
     // Definerer funktion ved indput climate
     getIncubationSpeed = (int) doc["incubationSpeed"];      
@@ -324,11 +324,11 @@ void onestep(){
 auto timer = timer_create_default();
 
 int getLowDelay() {
-  return getIncubationSpeed*20;
+  return 30000/(getIncubationSpeed+1);
 }
 
 int getHighDelay() {
-  return 30000/(getIncubationSpeed+1);
+  return getIncubationSpeed*20;
 }
 
 bool temp_LOW(void *optional) {

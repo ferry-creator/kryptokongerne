@@ -34,9 +34,9 @@ const mqttBroker hivemq    = { hivemq_host, hivemq_user, hivemq_pass, hivemq_por
 const mqttBroker maqiatto  = { maqia_host, maqia_user, maqia_pass, maqia_port };
 
 // Change this to change broker
-const mqttBroker MQTT = maqiatto;
+const mqttBroker MQTT = hivemq;
 // set true for hiveMQ
-const SSL_ENABLED = false
+const bool SSL_ENABLED = true;
 
 //////////// HiveMQ TSL ///////////
 const char* root_ca= \
@@ -121,11 +121,8 @@ DHT dht(DHTPIN, DHTTYPE);
 void callback(char* topic, byte* Payload, unsigned int length);
 
 // Opretter en klient der kan forbinde til en specifik internet IP adresse.
-WiFiClient espClient; // Initialiserer wifi bibloteket ESP8266Wifi, som er inkluderet under "nødvendige bibloteker"
+WiFiClientSecure espClient; // Initialiserer wifi bibloteket ESP8266Wifi, som er inkluderet under "nødvendige bibloteker"
 
-if(SSL_ENABLED) {
-  espClient.setCACert(root_ca)
-}
 
 // Opretter forbindelse til mqtt klienten:
 PubSubClient client(MQTT.host, MQTT.port, callback, espClient); // Initialiserer bibloteket for at kunne modtage og sende beskeder til mqtt. Den henter fra definerede mqtt server og port. Den henter fra topic og beskeden payload
@@ -147,7 +144,7 @@ void callback(char* topic, byte* Payload, unsigned int length) {
   StaticJsonDocument<256> doc;
   deserializeJson(doc, Payload, length);
   StaticJsonDocument<256> doc2;
-  doc2["STATUS"] = doc["STATUS"];
+  doc2["status"] = doc["status"];
 
   // Konverterer indkomne besked (topic) til en string:
   Serial.print("Message arrived [");
@@ -216,8 +213,8 @@ void callback(char* topic, byte* Payload, unsigned int length) {
         Serial.print(b);   
       }
  */       
-      if ((doc["type"])== "Mix") {
-        doc2["type"] = "Mix";
+      if ((doc["type"])== "mix") {
+        doc2["type"] = "mix";
         doc2["response"] = "OK";
         // Definerer funktion ved indput mix
         int i;
@@ -235,8 +232,9 @@ void callback(char* topic, byte* Payload, unsigned int length) {
   
      if ((doc["type"])== "climate") {
         doc2["type"] = "climate";
+        doc2["response"] = "OK";
         if(doc["enable"] == false) return;
-        digitalWrite(tempPin, HIGH);
+        digitalWrite(tempPin, LOW);
         if(doc["incubationSpeed"] == 255) return; 
         // Definerer funktion ved indput climate
         getIncubationSpeed = (int) doc["incubationSpeed"];      
@@ -367,22 +365,22 @@ void write(int a,int b,int c,int d){
   }
 
 void onestep(){
-  write(2,0,0,0);
-  delay(750);
-  write(2,2,0,0);
-  delay(780);
-  write(0,2,0,0);
-  delay(780);
-  write(0,2,2,0);
-  delay(780);
-  write(0,0,2,0);
-  delay(780);
-  write(0,0,2,2);
-  delay(780);
-  write(0,0,0,2);
-  delay(780);
-  write(2,0,0,2);
-  delay(780);
+  write(1,0,0,0);
+  delay(1);
+  write(1,1,0,0);
+  delay(1);
+  write(0,1,0,0);
+  delay(1);
+  write(0,1,1,0);
+  delay(1);
+  write(0,0,1,0);
+  delay(1);
+  write(0,0,1,1);
+  delay(1);
+  write(0,0,0,1);
+  delay(1);
+  write(1,0,0,1);
+  delay(1);
   }
 //
 //
@@ -404,6 +402,9 @@ void setup() {
   pinMode(motorPin2, OUTPUT);
   pinMode(tempPin, OUTPUT);
   // Set the pin modes of the trig and ecco pins to Output and input
+  if(SSL_ENABLED) {
+    espClient.setCACert(root_ca);
+  }
   setup_wifi(); // Kører WiFi loopet og forbinder herved.
   client.setServer(MQTT.host, MQTT.port); // Forbinder til mqtt serveren (defineret længere oppe)
   client.setCallback(callback); // Ingangsætter den definerede callback funktion hver gang der er en ny besked på den subscribede "cmd"- topic
@@ -422,13 +423,13 @@ void setup() {
 /////// LOOP /////////
 
 void loop() {
-  delay(getIncubationSpeed*20);
+ /* delay(getIncubationSpeed*20);
   digitalWrite(tempPin, LOW); 
   delay(30000/(getIncubationSpeed+1));
   digitalWrite(tempPin, HIGH);     
   delay(1000);
   // Hvis der opstår problemer med forbindelsen til mqtt broker oprettes forbindelse igen ved at køre client loop
-  if (!client.connected()) {
+ */ if (!client.connected()) {
     reconnect();
   }
   client.loop();

@@ -237,9 +237,6 @@ void callback(char* topic, byte* Payload, unsigned int length) {
 
 // Opretter forbindelse til WiFi
 void setup_wifi() {
-  if(SSL_ENABLED) {
-    espClient.setCACert(root_ca);
-  }
   // Forbinder til et WiFi network
   Serial.println();
   Serial.print("Connecting to ");
@@ -294,7 +291,9 @@ void reconnect() {
 
 ///////// SETUP ///////////
 void setup() {
-
+  if(SSL_ENABLED) {
+    espClient.setCACert(root_ca);
+  }
   Serial.begin(115200); // Åbner serial porten og sætter data raten til 115200 baud
   delay(1000);
   //setting servo pin to pin 2

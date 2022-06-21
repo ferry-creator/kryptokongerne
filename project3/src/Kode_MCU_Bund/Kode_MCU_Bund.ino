@@ -171,12 +171,13 @@ void callback(char* topic, byte* Payload, unsigned int length) {
     doc2["type"] = "mix";
     doc2["response"] = "OK";
     // Definerer funktion ved indput mix
-    int i;
-    i=0;
-    while(i<NUMBER_OF_STEPS_PER_REV){
-      onestep();
-      i++;
+    for (int k = 0; k < doc["reps"]; k++) {
+      int i = 0;
+      while(i<NUMBER_OF_STEPS_PER_REV){
+        onestep();
+        i++;
       }
+    }
     delay(doc["freq"]);
     char buffer[256];
     int b=serializeJson(doc2, buffer);
@@ -189,23 +190,23 @@ void callback(char* topic, byte* Payload, unsigned int length) {
     doc2["response"] = "OK";
     digitalWrite(tempPin, LOW);
     if(doc["enable"] == false) {
-      enable_climate = false
+      enable_climate = false;
       return;
     }
     else {
-      enable_climate = true
+      enable_climate = true;
     }
     if(doc["incubationSpeed"] == 0) {
-      allow_climate_low  = true
-      allow_climate_high = false
+      allow_climate_low  = true;
+      allow_climate_high = false;
     }
     else if(doc["incubationSpeed"] == 255) {
-      allow_climate_low  = false
-      allow_climate_high = true
+      allow_climate_low  = false;
+      allow_climate_high = true;
     }
     else {
-      allow_climate_low  = true
-      allow_climate_high = true
+      allow_climate_low  = true;
+      allow_climate_high = true;
     }
     // Definerer funktion ved indput climate
     getIncubationSpeed = (int) doc["incubationSpeed"];      

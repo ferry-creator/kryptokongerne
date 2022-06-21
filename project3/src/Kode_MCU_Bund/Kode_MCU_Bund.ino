@@ -154,148 +154,81 @@ void callback(char* topic, byte* Payload, unsigned int length) {
   for (int i=0;i<length;i++) {
     Serial.print((char)Payload[i]);
   }
-  Serial.println();
-
-/*  
-  // Konverterer den indkomne besked (payload) fra en array til en string:
-  // Topic == Temperaturmaaler, Topic == Kraftsensor
-  if (topic == "mathiashovmark@gmail.com/Mekatronik21") { // OBS: der subscribes til et topic nede i reconnect-funktionen. I det her tilfælde er der subscribed til "Test". Man kan subscribe til alle topics ved at bruge "#"
-    payload = ""; // Nulstil payload variablen så forloopet ikke appender til en allerede eksisterende payload
-    for (int i = 0; i < length; i++) {
-      payload += (char)byteArrayPayload[i];
-      // For-loop: tag hvert tegn i hele længden af den inkomne besked, og konverter denne til en char. Append tegnene 1 efter 1:
-      // Eksempel:
-      // Besked = Study Abroad
-      // Length = 12
-      // Loop 1 = "S"
-      // Loop 2 = "St" osv.
-      // Loop (length) = "Study Abroad"
-
-
-      if (doc["type"] == "Mix") {
-        // Definerer funktion
-        delay(1000);   
-        doc2["type"] = "heightData";
-        JsonArray data = doc2.createNestedArray("data");        
-        for (int k = 0; k < doc["reps"]; k++) {
-          digitalWrite(inRange_trigPin, LOW);
-          delayMicroseconds(2);
-          digitalWrite(inRange_trigPin, HIGH);
-          delayMicroseconds(10);
-          digitalWrite(inRange_trigPin, LOW);
-          int maal = 0.01715 * pulseIn(inRange_echoPin, HIGH);
-          data.add(maal);
-          Serial.print(maal);
-          delay(doc["freq"]);
-          }
-        char buffer[256];
-        int b=serializeJson(doc2, buffer);
-        client.publish("node-red", buffer);
-        Serial.print(b);            
-        }
-      
-      if ((doc["type"]) == "flour") {
-        // Definerer funktion ved indput Flour
-        delay(2000);  
-        doc2["type"] = "flourDispenserConfirmation";
-        for (int j = 0; j <= doc["reps"]; j++) {
-          servo.write(0);
-          delay(500);
-          delay(5000);
-          servo.write(90);
-          delay(200);
-          delay(5000);
-          servo.write(0);
-          delay(doc["freq"]);
-        }
-        char buffer[256];
-        int b=serializeJson(doc2, buffer);
-        client.publish("node-red", buffer);
-        Serial.print(b);   
+  Serial.println();      
+  if ((doc["type"])== "mix") {
+    doc2["type"] = "mix";
+    doc2["response"] = "OK";
+    // Definerer funktion ved indput mix
+    int i;
+    i=0;
+    while(i<NUMBER_OF_STEPS_PER_REV){
+      onestep();
+      i++;
       }
- */       
-      if ((doc["type"])== "mix") {
-        doc2["type"] = "mix";
-        doc2["response"] = "OK";
-        // Definerer funktion ved indput mix
-        int i;
-        i=0;
-        while(i<NUMBER_OF_STEPS_PER_REV){
-          onestep();
-          i++;
-          }
-        delay(doc["freq"]);
-        char buffer[256];
-        int b=serializeJson(doc2, buffer);
-        client.publish("s203773@student.dtu.dk/node-red", buffer);
-        Serial.print(b);       
+    delay(doc["freq"]);
+    char buffer[256];
+    int b=serializeJson(doc2, buffer);
+    client.publish("s203773@student.dtu.dk/node-red", buffer);
+    Serial.print(b);       
   }
   
-     if ((doc["type"])== "climate") {
-        doc2["type"] = "climate";
-        doc2["response"] = "OK";
-        if(doc["enable"] == false) return;
-        digitalWrite(tempPin, LOW);
-        if(doc["incubationSpeed"] == 255) return; 
-        // Definerer funktion ved indput climate
-        getIncubationSpeed = (int) doc["incubationSpeed"];      
-        char buffer[256];
-        int b=serializeJson(doc2, buffer);
-        client.publish("s203773@student.dtu.dk/node-red", buffer);
-        Serial.print(b);       
+  if ((doc["type"])== "climate") {
+    doc2["type"] = "climate";
+    doc2["response"] = "OK";
+    digitalWrite(tempPin, LOW);
+    if(doc["enable"] == false) return;
+    if(doc["incubationSpeed"] == 0) return;
+    if(doc["incubationSpeed"] == 255) {
+      digitalWrite(tempPin, HIGH);
+    }
+    // Definerer funktion ved indput climate
+    getIncubationSpeed = (int) doc["incubationSpeed"];      
+    char buffer[256];
+    int b=serializeJson(doc2, buffer);
+    client.publish("s203773@student.dtu.dk/node-red", buffer);
+    Serial.print(b);
+  }
       
-      }
-      
 
 
 
-     if ((doc["type"])== "getTemp") {
-        doc2["type"] = "Tempdata";
-        // Definerer funktion ved indput gettemp
-          // Wait a few seconds between measurements.
-          delay(2000+1);
-        
-          // Reading temperature or humidity takes about 250 milliseconds!
-          // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-          float h = dht.readHumidity();
-          // Read temperature as Celsius (the default)
-          float t = dht.readTemperature();
-          // Read temperature as Fahrenheit (isFahrenheit = true)
-          float f = dht.readTemperature(true);
-        
-          // Check if any reads failed and exit early (to try again).
-          if (isnan(h) || isnan(t) || isnan(f)) {
-            Serial.println(F("Failed to read from DHT sensor!"));
-            return;
-          }
-        
-          // Compute heat index in Fahrenheit (the default)
-          float hif = dht.computeHeatIndex(f, h);
-          // Compute heat index in Celsius (isFahreheit = false)
-          float hic = dht.computeHeatIndex(t, h, false);
-        
-          Serial.print(F(" Humidity: "));
-          Serial.print(h);
-          Serial.print(F("%  Temperature: "));
-          Serial.print(t);
-          Serial.print(F("C "));
-          Serial.print(f);
-          Serial.print(F("F  Heat index: "));
-          Serial.print(hic);
-          Serial.print(F("C "));
-          Serial.print(hif);
-          Serial.println(F("F"));        
-      }
-
- /*     if (doc["STATUS"] == ("IDLE") || (AWAITING) {
-        // Definerer funktion
-        delay(1000);
-           
-        }
-*/
-                    
-
-
+  if ((doc["type"])== "getTemp") {
+    doc2["type"] = "Tempdata";
+    // Definerer funktion ved indput gettemp
+    // Wait a few seconds between measurements.
+    delay(2000+1);
+  
+    // Reading temperature or humidity takes about 250 milliseconds!
+    // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+    float h = dht.readHumidity();
+    // Read temperature as Celsius (the default)
+    float t = dht.readTemperature();
+    // Read temperature as Fahrenheit (isFahrenheit = true)
+    float f = dht.readTemperature(true);
+  
+    // Check if any reads failed and exit early (to try again).
+    if (isnan(h) || isnan(t) || isnan(f)) {
+      Serial.println(F("Failed to read from DHT sensor!"));
+      return;
+    }
+  
+    // Compute heat index in Fahrenheit (the default)
+    float hif = dht.computeHeatIndex(f, h);
+    // Compute heat index in Celsius (isFahreheit = false)
+    float hic = dht.computeHeatIndex(t, h, false);
+  
+    Serial.print(F(" Humidity: "));
+    Serial.print(h);
+    Serial.print(F("%  Temperature: "));
+    Serial.print(t);
+    Serial.print(F("C "));
+    Serial.print(f);
+    Serial.print(F("F  Heat index: "));
+    Serial.print(hic);
+    Serial.print(F("C "));
+    Serial.print(hif);
+    Serial.println(F("F"));        
+  }
 }
 
 ///////// CALLBACK SLUT /////////

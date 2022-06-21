@@ -323,11 +323,11 @@ void onestep(){
 
 auto timer = timer_create_default();
 
-void getLowDelay() {
+int getLowDelay() {
   return getIncubationSpeed*20;
 }
 
-void getHighDelay() {
+int getHighDelay() {
   return 30000/(getIncubationSpeed+1);
 }
 

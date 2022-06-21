@@ -38,6 +38,15 @@ const mqttBroker MQTT = maqiatto;
 // set true for hiveMQ
 const bool SSL_ENABLED = false;
 
+struct wifiProfile {
+  char *ssid;
+  char *pass;
+};
+
+const wifiProfile andreas  = { "OnePlus 7", "55012bceb395" };
+const wifiProfile jonathan = { "ferry", "89898989" };
+const wifiProfile WIFI = andreas;
+
 //////////// HiveMQ TSL ///////////
 const char* root_ca= \
      "-----BEGIN CERTIFICATE-----\n" \
@@ -80,8 +89,8 @@ int motorPin1 = 12;
 int motorPin2 = 14;
 
 // Definerer id og password til netværksforbindelse som NodeMCU anvender
-const char* ssid = "OnePlus 7"; //Indsæt navnet på jeres netværk her
-const char* password = "55012bceb395"; //Indsæt password her
+const char* ssid = WIFI.ssid; //Indsæt navnet på jeres netværk her
+const char* password = WIFI.pass; //Indsæt password her
 
 String payload; // Definerer variablen 'payload' i det globale scope (payload er navnet på besked-variablen)
 

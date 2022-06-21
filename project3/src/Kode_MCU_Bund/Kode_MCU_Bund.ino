@@ -388,6 +388,8 @@ void onestep(){
 //
 //
 
+auto timer = timer_create_default();
+
 void getLowDelay() {
   return getIncubationSpeed*20;
 }
@@ -396,27 +398,25 @@ void getHighDelay() {
   return 30000/(getIncubationSpeed+1);
 }
 
-bool tempPin_LOW() {
+bool temp_LOW(void *optional) {
   digitalWrite(tempPin, LOW);
-  timer.in(getLowDelay(), tempPin_LOW);
+  timer.in(getLowDelay(), temp_HIGH);
   return false;
 }
 
-bool tempPin_HIGH() {
+bool temp_HIGH(void *optional) {
   digitalWrite(tempPin, HIGH);
-  timer.in(getHighDelay(), tempPin_LOW);
+  timer.in(getHighDelay(), temp_LOW);
   return false;
 }
 
-bool wifiClientLoop() {
+bool wifiClientLoop(void *optional) {
   if (!client.connected()) {
     reconnect();
   }
   client.loop();
   return true;
 }
-
-auto timer = timer_create_default();
 
 void setup() {
   pinMode(A,OUTPUT);
@@ -440,7 +440,7 @@ void setup() {
   client.setCallback(callback); // Ingangsætter den definerede callback funktion hver gang der er en ny besked på den subscribede "cmd"- topic
 
   // Timer tasks
-  timer.in(getLowDelay(), tempPin_LOW);
+  timer.in(getLowDelay(), temp_LOW);
   timer.every(1000, wifiClientLoop);
 }
 

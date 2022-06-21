@@ -136,6 +136,9 @@ PubSubClient client(MQTT.host, MQTT.port, callback, espClient); // Initialiserer
 //
 //
 //
+bool enable_climate;
+bool allow_climate_low;
+bool allow_climate_high;
 
 ///////// CALLBACKFUNKTION ////////
 
@@ -176,10 +179,24 @@ void callback(char* topic, byte* Payload, unsigned int length) {
     doc2["type"] = "climate";
     doc2["response"] = "OK";
     digitalWrite(tempPin, LOW);
-    if(doc["enable"] == false) return;
-    if(doc["incubationSpeed"] == 0) return;
-    if(doc["incubationSpeed"] == 255) {
-    digitalWrite(tempPin, HIGH);
+    if(doc["enable"] == false) {
+      enable_climate = false
+      return;
+    }
+    else {
+      enable_climate = true
+    }
+    if(doc["incubationSpeed"] == 0) {
+      allow_climate_low  = true
+      allow_climate_high = false
+    }
+    else if(doc["incubationSpeed"] == 255) {
+      allow_climate_low  = false
+      allow_climate_high = true
+    }
+    else {
+      allow_climate_low  = true
+      allow_climate_high = true
     }
     // Definerer funktion ved indput climate
     getIncubationSpeed = (int) doc["incubationSpeed"];      
@@ -332,13 +349,17 @@ int getHighDelay() {
 }
 
 bool temp_LOW(void *optional) {
-  digitalWrite(tempPin, LOW);
+  if(allow_climate_low) {
+    digitalWrite(tempPin, LOW);
+  }
   timer.in(getLowDelay(), temp_HIGH);
   return false;
 }
 
 bool temp_HIGH(void *optional) {
-  digitalWrite(tempPin, HIGH);
+  if(allow_climate_high && enable_climate) {
+    digitalWrite(tempPin, HIGH);
+  }
   timer.in(getHighDelay(), temp_LOW);
   return false;
 }

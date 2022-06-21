@@ -1,4 +1,3 @@
-
 //////////// Initiering ///////////
 
 //inkluderer nødvendige bibloteker
@@ -6,6 +5,8 @@
 #include <PubSubClient.h>
 #include <SPI.h>
 #include <ArduinoJson.h>
+
+#include <arduino-timer.h>
 
 #define hivemq_host "d442f1008e514e098cb3126d115cb356.s1.eu.hivemq.cloud"
 #define hivemq_user "krypto"
@@ -387,7 +388,36 @@ void onestep(){
 //
 //
 
-///////// SETUP ///////////
+void getLowDelay() {
+  return getIncubationSpeed*20;
+}
+
+void getHighDelay() {
+  return 30000/(getIncubationSpeed+1);
+}
+
+bool tempPin_LOW() {
+  digitalWrite(tempPin, LOW);
+  timer.in(getLowDelay(), tempPin_LOW);
+  return false;
+}
+
+bool tempPin_HIGH() {
+  digitalWrite(tempPin, HIGH);
+  timer.in(getHighDelay(), tempPin_LOW);
+  return false;
+}
+
+bool wifiClientLoop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+  return true;
+}
+
+auto timer = timer_create_default();
+
 void setup() {
   pinMode(A,OUTPUT);
   pinMode(B,OUTPUT);
@@ -409,31 +439,11 @@ void setup() {
   client.setServer(MQTT.host, MQTT.port); // Forbinder til mqtt serveren (defineret længere oppe)
   client.setCallback(callback); // Ingangsætter den definerede callback funktion hver gang der er en ny besked på den subscribede "cmd"- topic
 
-
+  // Timer tasks
+  timer.in(getLowDelay(), tempPin_LOW);
+  timer.every(1000, wifiClientLoop);
 }
-//////// SETUP SLUT ////////
-
-//
-//
-//
-//
-//
-//
-
-/////// LOOP /////////
 
 void loop() {
- /* delay(getIncubationSpeed*20);
-  digitalWrite(tempPin, LOW); 
-  delay(30000/(getIncubationSpeed+1));
-  digitalWrite(tempPin, HIGH);     
-  delay(1000);
-  // Hvis der opstår problemer med forbindelsen til mqtt broker oprettes forbindelse igen ved at køre client loop
- */ if (!client.connected()) {
-    reconnect();
-  }
-  client.loop();
-
+  timer.tick();
 }
-
-//////// Loop slut ////////

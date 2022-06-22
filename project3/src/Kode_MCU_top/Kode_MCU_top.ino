@@ -34,9 +34,9 @@ const mqttBroker hivemq    = { hivemq_host, hivemq_user, hivemq_pass, hivemq_por
 const mqttBroker maqiatto  = { maqia_host, maqia_user, maqia_pass, maqia_port };
 
 // Change this to change broker
-const mqttBroker MQTT = maqiatto;
+const mqttBroker MQTT = hivemq;
 // set true for hiveMQ
-const bool SSL_ENABLED = false;
+const bool SSL_ENABLED = true;
 
 struct wifiProfile {
   char *ssid;
@@ -85,8 +85,8 @@ const char* root_ca= \
 Servo servo;
 
 //Defining pins for pump
-int motorPin1 = 12;
-int motorPin2 = 14;
+int motorPin1 = 33;
+
 
 // Definerer id og password til netværksforbindelse som NodeMCU anvender
 const char* ssid = WIFI.ssid; //Indsæt navnet på jeres netværk her
@@ -214,12 +214,10 @@ void callback(char* topic, byte* Payload, unsigned int length) {
         // Definerer funktion ved indput water
         delay(1000);
         // Turn the motor in one direction
-        digitalWrite(motorPin1, LOW); 
-        digitalWrite(motorPin2, HIGH); 
+        digitalWrite(motorPin1, HIGH); 
         delay(doc["freq"]) ;
         //For brake
-        digitalWrite(motorPin1, LOW);
-        digitalWrite(motorPin2, LOW); 
+        digitalWrite(motorPin1, LOW); 
         delay(1000);    
         char buffer[256];
         int b=serializeJson(doc2, buffer);
@@ -309,7 +307,6 @@ void setup() {
   servo.attach(25);
   // Set the pin modes of the motor pins to OUTPUT
   pinMode(motorPin1, OUTPUT);
-  pinMode(motorPin2, OUTPUT);
   // Set the pin modes of the trig and ecco pins to Output and input
   pinMode(inRange_trigPin, OUTPUT);
   pinMode(inRange_echoPin, INPUT);

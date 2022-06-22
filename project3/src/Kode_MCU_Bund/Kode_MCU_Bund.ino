@@ -46,7 +46,7 @@ struct wifiProfile {
 
 const wifiProfile andreas  = { "OnePlus 7", "55012bceb395" };
 const wifiProfile jonathan = { "ferry", "89898989" };
-const wifiProfile WIFI = andreas;
+const wifiProfile WIFI = jonathan;
 
 //////////// HiveMQ TSL ///////////
 const char* root_ca= \
@@ -95,7 +95,7 @@ const char* password = WIFI.pass; //Indsæt password her
 String payload; // Definerer variablen 'payload' i det globale scope (payload er navnet på besked-variablen)
 
 //Defining pin for temp coltrol
-const int tempPin = 12;
+const int tempPin = 18;
 
 #include "DHT.h"
 
@@ -107,10 +107,10 @@ const int tempPin = 12;
 
 DHT dht(DHTPIN, DHTTYPE);
 
-#define A 33
-#define B 25
-#define C 26
-#define D 27
+#define A 19
+#define B 21
+#define C 22
+#define D 23
 
 #define NUMBER_OF_STEPS_PER_REV 512
 

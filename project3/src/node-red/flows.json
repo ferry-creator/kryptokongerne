@@ -2,7 +2,7 @@
     {
         "id": "fb94b5ca5ce751d5",
         "type": "tab",
-        "label": "mcu",
+        "label": "MCU",
         "disabled": false,
         "info": "",
         "env": []
@@ -16,18 +16,18 @@
         "env": []
     },
     {
-        "id": "85ecac428367bed1",
+        "id": "dc4958470e403265",
         "type": "tab",
-        "label": "test",
-        "disabled": true,
+        "label": "Response logs",
+        "disabled": false,
         "info": "",
         "env": []
     },
     {
-        "id": "dc4958470e403265",
+        "id": "615d7da335e1bd29",
         "type": "tab",
-        "label": "Response logs",
-        "disabled": true,
+        "label": "UI tests",
+        "disabled": false,
         "info": "",
         "env": []
     },
@@ -121,8 +121,8 @@
             "sizes": {
                 "sx": 48,
                 "sy": 48,
-                "gx": 6,
-                "gy": 6,
+                "gx": 18,
+                "gy": 18,
                 "cx": 6,
                 "cy": 6,
                 "px": 0,
@@ -206,13 +206,13 @@
     {
         "id": "f7a6956cc03bf7dc",
         "type": "mqtt-broker",
-        "name": "Mosquitto",
-        "broker": "kryptokogeren.northeurope.cloudapp.azure.com",
+        "name": "MaQiaTTo",
+        "broker": "maqiatto.com",
         "port": "1883",
         "tls": "",
         "clientid": "",
         "autoConnect": true,
-        "usetls": true,
+        "usetls": false,
         "protocolVersion": "4",
         "keepalive": "60",
         "cleansession": true,
@@ -239,7 +239,7 @@
         "disp": true,
         "width": "6",
         "collapse": false,
-        "className": ""
+        "className": "ui-system"
     },
     {
         "id": "2d1a4ce25790118e",
@@ -252,11 +252,22 @@
         "height": 1
     },
     {
+        "id": "c8cc3c3ee71f5641",
+        "type": "ui_group",
+        "name": "Testing",
+        "tab": "9d49a9027f140f70",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": "ui-tests"
+    },
+    {
         "id": "8e6c4df65096e965",
         "type": "mqtt out",
         "z": "fb94b5ca5ce751d5",
         "name": "JSON out",
-        "topic": "mcu",
+        "topic": "s203773@student.dtu.dk/MCU",
         "qos": "2",
         "retain": "",
         "respTopic": "",
@@ -264,7 +275,7 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "9c374d34624eca9c",
+        "broker": "42de78205b9c9f26",
         "x": 1260,
         "y": 260,
         "wires": []
@@ -283,7 +294,7 @@
         "tooltip": "Begin the incubation process",
         "color": "",
         "bgcolor": "",
-        "className": "bigbtn",
+        "className": "bigBtn",
         "icon": "{{msg.icon}}",
         "payload": "",
         "payloadType": "str",
@@ -333,7 +344,7 @@
         "topic": "topic",
         "topicType": "msg",
         "min": "-3",
-        "max": "0",
+        "max": "1",
         "step": 1,
         "className": "",
         "x": 650,
@@ -371,7 +382,7 @@
         "type": "function",
         "z": "fb94b5ca5ce751d5",
         "name": "btn controller",
-        "func": "const state = msg.payload.status\nif(state === \"IDLE\") {\n    \n}\nswitch(state) {\n    case \"IDLE\":\n        msg.label = \"Start\"\n        msg.topic = \"start\"\n        msg.icon  = \"fa-play\"\n        break\n    case \"STARTING\":\n        msg.label = \"... Starting\"\n        msg.topic = null\n        msg.icon  = null\n        break\n    case \"INCUBATING\":\n        msg.label = \"Stop\"\n        msg.topic = \"stop\"\n        msg.icon  = \"fa-stop\"\n        break\n    case \"AWAITING\":\n        msg.label = \"Finish\"\n        msg.topic = \"stop\"\n        msg.icon  = \"fa-stop\"\n        break\n    case \"AWAITINGMIXER\":\n        msg.label = \"Mix\"\n        msg.topic = \"confirmMixer\"\n        msg.icon  = \"fa-play\"\n        break\n    case \"MIXING\":\n        msg.label = \"... Mixing\"\n        msg.topic = null\n        msg.icon  = null\n        break\n}\nreturn msg",
+        "func": "const state = msg.payload.status\n\nswitch(state) {\n    case \"IDLE\":\n        msg.label = \"Start\"\n        msg.topic = \"start\"\n        msg.icon  = \"fa-play\"\n        return msg\n    case \"STARTING\":\n        msg.label = \"... Starting\"\n        msg.topic = null\n        msg.icon  = null\n        return msg\n    case \"INCUBATING\":\n        msg.label = \"Stop\"\n        msg.topic = \"stop\"\n        msg.icon  = \"fa-stop\"\n        return msg\n    case \"AWAITING\":\n        msg.label = \"Finish\"\n        msg.topic = \"stop\"\n        msg.icon  = \"fa-stop\"\n        return msg\n    case \"AWAITINGMIXER\":\n        msg.label = \"Mix\"\n        msg.topic = \"confirmMixer\"\n        msg.icon  = \"fa-play\"\n        return msg\n    case \"MIXING\":\n        msg.label = \"... Mixing\"\n        msg.topic = null\n        msg.icon  = null\n        return msg\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -416,10 +427,10 @@
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "State",
+        "label": "State:",
         "format": "{{msg.payload}}",
         "layout": "row-left",
-        "className": "",
+        "className": "info-text, system-state-text",
         "x": 690,
         "y": 200,
         "wires": []
@@ -446,7 +457,7 @@
         "type": "function",
         "z": "fb94b5ca5ce751d5",
         "name": "Switch on State",
-        "func": "const status = msg.payload\nmsg.payload = {status}\nswitch(status) {\n    case \"IDLE\":\n        global.set(\"initialHeight\") //remove\n        break\n    case \"STARTING\":\n        msg.payload = {\n            ...msg.payload,\n            \"type\": \"heightSensor\",\n            \"freq\": 1000,\n            \"reps\": 5\n        }\n        return msg\n    case \"MIXING\":\n        msg.payload = {\n            ...msg.payload,\n            \"type\": \"water\",\n            \"freq\": 1000\n        }\n        return msg\n}",
+        "func": "const status = msg.payload\nmsg.payload = {status}\nswitch(status) {\n    case \"IDLE\":\n        global.set(\"initialHeight\") //remove\n        break\n    case \"STARTING\":\n        msg.payload = {\n            ...msg.payload,\n            \"type\": \"heightSensor\",\n            \"freq\": 1000,\n            \"reps\": 5\n        }\n        return msg\n    case \"MIXING\":\n        const water = {\n            ...msg.payload,\n            \"type\": \"water\",\n            \"freq\": 1000\n        }\n        const mix = {\n            ...msg.payload,\n            \"type\": \"mix\",\n            \"reps\": 10\n        }\n        return [[{payload: water}, {payload: mix}]]\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -466,8 +477,8 @@
         "z": "fb94b5ca5ce751d5",
         "minin": "-3",
         "maxin": "0",
-        "minout": "0",
-        "maxout": "255",
+        "minout": "255",
+        "maxout": "0",
         "action": "scale",
         "round": true,
         "property": "payload",
@@ -521,7 +532,7 @@
         "type": "function",
         "z": "fb94b5ca5ce751d5",
         "name": "Set Incubation Speed",
-        "func": "const state = global.get(\"state\")\nif(state === \"INCUBATING\") {\n    msg.payload = {\n        \"type\": \"climate\",\n        \"enable\": true,\n        \"incubationSpeed\": flow.get(\"incubationSpeed\")\n    }\n    return msg\n}",
+        "func": "const state = global.get(\"state\")\n/*if(state === \"INCUBATING\") {\n    msg.payload = {\n        state,\n        \"type\": \"climate\",\n        \"enable\": true,\n        \"incubationSpeed\": flow.get(\"incubationSpeed\")\n    }\n    return msg\n}*/\nmsg.payload = {\n    state,\n    \"type\": \"climate\",\n    \"enable\": true,\n    \"incubationSpeed\": flow.get(\"incubationSpeed\")\n}\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -555,7 +566,7 @@
         "type": "function",
         "z": "fb94b5ca5ce751d5",
         "name": "Get height continously",
-        "func": "const state = global.get(\"state\")\nif(state === \"INCUBATING\") {\n    msg.payload = {\n        \"status\": state,\n        \"type\": \"heightSensor\",\n        \"freq\": 1,\n        \"reps\": 5\n    }\n    return msg\n}",
+        "func": "const state = global.get(\"state\")\nif(state === \"INCUBATING\") {\n    msg.payload = {\n        \"status\": state,\n        \"type\": \"heightSensor\",\n        \"freq\": 500,\n        \"reps\": 5\n    }\n    return msg\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -579,7 +590,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 1270,
@@ -640,7 +652,7 @@
         "cancel": "Cancel",
         "raw": false,
         "className": "",
-        "topic": "",
+        "topic": "Confirmation",
         "name": "Confirm mixing?",
         "x": 340,
         "y": 480,
@@ -696,40 +708,57 @@
         "scope": [
             "8e6c4df65096e965"
         ],
-        "x": 920,
-        "y": 480,
+        "x": 940,
+        "y": 560,
         "wires": [
             [
-                "cb1be362902ded7f"
+                "a25c280fdb361527"
             ]
         ]
     },
     {
-        "id": "cb1be362902ded7f",
-        "type": "ui_text",
+        "id": "a25c280fdb361527",
+        "type": "link out",
         "z": "fb94b5ca5ce751d5",
-        "group": "9cdb89835f4478cd",
-        "order": 2,
+        "name": "MQTT status out",
+        "mode": "link",
+        "links": [
+            "25a2e388b19a8113"
+        ],
+        "x": 1095,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "a42acad459bc939c",
+        "type": "ui_template",
+        "z": "fb94b5ca5ce751d5",
+        "group": "70e4408fb7a5530a",
+        "name": "Styles",
+        "order": 8,
         "width": 0,
         "height": 0,
-        "name": "",
-        "label": "MQQT out",
-        "format": "{{msg.status.text}}",
-        "layout": "row-left",
-        "className": "",
-        "x": 1090,
-        "y": 480,
-        "wires": []
+        "format": "<style type=\"text/css\" media=\"all\">\n    .info-text {\n        opacity: 0.75 !important;\n    }\n    .system-state-text {\n        opacity: 0.5 !important;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "global",
+        "className": "Styles",
+        "x": 630,
+        "y": 560,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "18f700adc5b1f454",
         "type": "mqtt in",
         "z": "a00d9ff1d49b324a",
         "name": "JSON in",
-        "topic": "node-red",
+        "topic": "s203773@student.dtu.dk/node-red",
         "qos": "2",
         "datatype": "auto",
-        "broker": "9c374d34624eca9c",
+        "broker": "42de78205b9c9f26",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -743,22 +772,6 @@
         ]
     },
     {
-        "id": "37e347cdf570ceaf",
-        "type": "debug",
-        "z": "a00d9ff1d49b324a",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 590,
-        "y": 160,
-        "wires": []
-    },
-    {
         "id": "cd59e4d77b8bf366",
         "type": "json",
         "z": "a00d9ff1d49b324a",
@@ -770,7 +783,6 @@
         "y": 200,
         "wires": [
             [
-                "37e347cdf570ceaf",
                 "9371853bdb3f3e5c"
             ]
         ]
@@ -800,20 +812,17 @@
         "type": "function",
         "z": "a00d9ff1d49b324a",
         "name": "MeanHeight",
-        "func": "const sum = msg.payload.data.reduce((acc,cur) => {\n    return acc += cur\n},0)\nmsg.payload.mean = parseInt(sum / msg.payload.data.length)\nreturn msg;",
+        "func": "const sum = msg.payload.data.reduce((acc,cur) => {\n    return acc += cur\n},0)\nconst mean = sum / msg.payload.data.length\nmsg.payload.mean = parseFloat(mean).toFixed(2)\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 830,
+        "x": 670,
         "y": 460,
         "wires": [
             [
-                "15413418d4091d69",
-                "477b95154ade860d",
-                "13b14380afa66727",
-                "fa758a25cef4086c"
+                "06255601f619a7f8"
             ]
         ]
     },
@@ -836,7 +845,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"status\":\"STARTING\",\"type\":\"heightSensor\",\"data\":[100,2000,3000,312,23]}",
+        "payload": "{\"status\":\"STARTING\",\"type\":\"heightSensor\",\"data\":[15,18,12,18,12]}",
         "payloadType": "json",
         "x": 290,
         "y": 300,
@@ -855,11 +864,11 @@
         "width": "0",
         "height": "0",
         "name": "",
-        "label": "Height",
+        "label": "Height:",
         "format": "{{msg.payload.mean}}",
         "layout": "row-left",
-        "className": "",
-        "x": 1030,
+        "className": "info-text",
+        "x": 920,
         "y": 520,
         "wires": []
     },
@@ -895,7 +904,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"status\":\"INCUBATING\",\"type\":\"heightSensor\",\"data\":[2174,2174,2174,2174,2174]}",
+        "payload": "{\"status\":\"INCUBATING\",\"type\":\"heightSensor\",\"data\":[10,10,10,10,10]}",
         "payloadType": "json",
         "x": 230,
         "y": 380,
@@ -914,10 +923,10 @@
         "width": "0",
         "height": "0",
         "name": "",
-        "label": "Initial height",
+        "label": "Initial height:",
         "format": "{{msg.payload.mean}}",
         "layout": "row-left",
-        "className": "",
+        "className": "info-text",
         "x": 1190,
         "y": 580,
         "wires": []
@@ -964,7 +973,7 @@
         "type": "function",
         "z": "a00d9ff1d49b324a",
         "name": "Check if height has doubled",
-        "func": "if(msg.payload.status === \"INCUBATING\") {\n    const initialHeight = global.get(\"initialHeight\")\n    const currentHeight = msg.payload.mean\n    if( currentHeight >= initialHeight * 2) {\n        const baking = flow.get(\"baking\")\n        if(baking) {\n            msg.payload = \"Sourdough is ready!\"\n        } else {\n            msg.payload = \"Remove sourdough until 10g left, then press mix\"\n        }\n        return msg;\n    }\n}",
+        "func": "if(msg.payload.status === \"INCUBATING\") {\n    const initialHeight = global.get(\"initialHeight\")\n    const currentHeight = msg.payload.mean\n    if( currentHeight >= initialHeight * 2) {\n        msg.peak = true\n        const baking = flow.get(\"baking\")\n        if(baking) {\n            msg.payload = \"Sourdough is ready!\"\n        } else {\n            msg.payload = \"Remove sourdough until 10g left, then press mix\"\n        }\n        return msg\n    }\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -974,7 +983,9 @@
         "y": 400,
         "wires": [
             [
-                "6be2b23545cc45f6"
+                "6be2b23545cc45f6",
+                "76138530ea2bd048",
+                "33a4df7145e44607"
             ]
         ]
     },
@@ -991,15 +1002,12 @@
         "cancel": "",
         "raw": false,
         "className": "",
-        "topic": "",
+        "topic": "Done",
         "name": "Sourdough ready",
-        "x": 1330,
-        "y": 400,
+        "x": 1510,
+        "y": 340,
         "wires": [
-            [
-                "33a4df7145e44607",
-                "76138530ea2bd048"
-            ]
+            []
         ]
     },
     {
@@ -1021,7 +1029,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"status\":\"INCUBATING\",\"type\":\"heightSensor\",\"data\":[100,2000,3256,3120,230]}",
+        "payload": "{\"status\":\"INCUBATING\",\"type\":\"heightSensor\",\"data\":[15,14,13,12,10]}",
         "payloadType": "json",
         "x": 280,
         "y": 340,
@@ -1035,14 +1043,14 @@
         "id": "33a4df7145e44607",
         "type": "function",
         "z": "a00d9ff1d49b324a",
-        "name": "go to AWAITING if \"OK\"",
-        "func": "if(msg.payload === \"OK\") {\n    const baking = flow.get(\"baking\")\n    if(baking) {\n        msg.topic = \"await\"\n    } else {\n        msg.topic = \"awaitMixing\"\n    }\n    return msg\n}",
+        "name": "go to AWAITING if peak",
+        "func": "if(msg.peak === true) {\n    const baking = flow.get(\"baking\")\n    if(baking) {\n        msg.topic = \"await\"\n    } else {\n        msg.topic = \"awaitMixing\"\n    }\n    return msg\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1570,
+        "x": 1530,
         "y": 400,
         "wires": [
             [
@@ -1059,7 +1067,7 @@
         "links": [
             "0df9330c4d91f7ad"
         ],
-        "x": 1715,
+        "x": 1685,
         "y": 400,
         "wires": []
     },
@@ -1083,13 +1091,23 @@
             },
             {
                 "t": "eq",
+                "v": "mix",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
                 "v": "heightSensor",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "tempSensor",
                 "vt": "str"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 3,
+        "outputs": 5,
         "x": 570,
         "y": 300,
         "wires": [
@@ -1100,8 +1118,12 @@
                 "0615678f75f17b16"
             ],
             [
+                "0615678f75f17b16"
+            ],
+            [
                 "93f59d9c904345cd"
-            ]
+            ],
+            []
         ]
     },
     {
@@ -1161,7 +1183,7 @@
         "links": [
             "c642f5bd0ebd4cd5"
         ],
-        "x": 175,
+        "x": 85,
         "y": 80,
         "wires": [
             [
@@ -1258,7 +1280,7 @@
         "finalize": "",
         "libs": [],
         "x": 810,
-        "y": 300,
+        "y": 280,
         "wires": [
             [
                 "41dce046f5b2115c",
@@ -1275,8 +1297,8 @@
         "links": [
             "b13503fa4d29470b"
         ],
-        "x": 1455,
-        "y": 240,
+        "x": 1315,
+        "y": 220,
         "wires": []
     },
     {
@@ -1291,32 +1313,7 @@
         "finalize": "",
         "libs": [],
         "x": 1040,
-        "y": 240,
-        "wires": [
-            [
-                "47a524ce435c38e0"
-            ]
-        ]
-    },
-    {
-        "id": "47a524ce435c38e0",
-        "type": "delay",
-        "z": "a00d9ff1d49b324a",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "500",
-        "timeoutUnits": "milliseconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1190,
-        "y": 240,
+        "y": 220,
         "wires": [
             [
                 "8b03a0f9cf5b887b"
@@ -1334,8 +1331,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1350,
-        "y": 240,
+        "x": 1210,
+        "y": 220,
         "wires": [
             [
                 "df0a1944aef5cbbc"
@@ -1351,8 +1348,8 @@
         "links": [
             "0df9330c4d91f7ad"
         ],
-        "x": 1375,
-        "y": 300,
+        "x": 1435,
+        "y": 280,
         "wires": []
     },
     {
@@ -1366,8 +1363,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1220,
-        "y": 300,
+        "x": 1300,
+        "y": 280,
         "wires": [
             [
                 "3f2d2519b1c7aeb2"
@@ -1378,15 +1375,15 @@
         "id": "2261ae9763229f01",
         "type": "function",
         "z": "a00d9ff1d49b324a",
-        "name": "Is flour?",
-        "func": "const { type } = msg.payload\nif(type === \"flour\") {\n    return msg\n}",
+        "name": "Is flour and mix?",
+        "func": "const nodeContext = this.context\nconst { type } = msg.payload\nif(type === \"flour\") {\n    nodeContext.set(\"flour\", 1)\n}\nif(type === \"mix\") {\n    nodeContext.set(\"mix\", 1)\n}\n\nif(nodeContext.get(\"flour\") && nodeContext.get(\"mix\")) {\n    // clear context\n    nodeContext.set(\"flour\")\n    nodeContext.set(\"mix\")\n    // and return\n    return msg\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1040,
-        "y": 300,
+        "x": 1070,
+        "y": 280,
         "wires": [
             [
                 "cf8033cb5d04653d"
@@ -1401,30 +1398,13 @@
         "scope": [
             "18f700adc5b1f454"
         ],
-        "x": 820,
-        "y": 80,
+        "x": 300,
+        "y": 1160,
         "wires": [
             [
-                "cb6a8fb0fce8206f"
+                "616403e23b79261d"
             ]
         ]
-    },
-    {
-        "id": "cb6a8fb0fce8206f",
-        "type": "ui_text",
-        "z": "a00d9ff1d49b324a",
-        "group": "9cdb89835f4478cd",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "MQQT in",
-        "format": "{{msg.status.text}}",
-        "layout": "row-left",
-        "className": "",
-        "x": 980,
-        "y": 80,
-        "wires": []
     },
     {
         "id": "057b8e446aae360f",
@@ -1435,14 +1415,14 @@
         "order": 6,
         "width": 0,
         "height": 0,
-        "format": "<div class=\"progressbar\">\n    <div class=\"progress\" style={{msg.rainbow}}>\n        <b><span>{{msg.percent}}%</span></b>\n    </div>\n</div>\n\n<style>\n    @-webkit-keyframes AnimationName {\n        0%{background-position:0% 50%}\n        50%{background-position:100% 50%}\n        100%{background-position:0% 50%}\n    }\n    @-moz-keyframes AnimationName {\n        0%{background-position:0% 50%}\n        50%{background-position:100% 50%}\n        100%{background-position:0% 50%}\n    }\n    @keyframes AnimationName {\n        0%{background-position:0% 50%}\n        50%{background-position:100% 50%}\n        100%{background-position:0% 50%}\n    }\n    .progressbar {\n        background: #5f6165;\n        width: 100%;\n        height: 20px;\n        border-radius: 2px;\n    }\n    .progress {\n        background: #ae9279;\n        height: 100%;\n        width: {{msg.percent}}%;\n        border-radius: inherit;\n        animation-name: MOVE-BG;\n        animation-duration: 100s;\n        animation-timing-function: linear;\n        animation-iteration-count: infinite;\n    }\n    \n    span {\n        margin-left: 10px;\n    }\n</style>",
+        "format": "<div class=\"progressbar-wrapper\">\n    <div class=\"progressbar\">\n        <div class=\"progress\" style={{msg.rainbow}}>\n            <b><span class=\"progressbartext\">{{msg.percent}}%</span></b>\n        </div>\n    </div>\n</div>\n\n<style>\n    .progressbar-wrapper {\n        padding: 0 6px;\n    }\n    \n    @keyframes AnimationName {\n        0%{background-position:100% 50%}\n        100%{background-position:0% 50%}\n    }\n    \n    .progressbar {\n        background: #4c5055;\n        width: 100%;\n        height: 30px;\n        border-radius: 4px;\n    }\n    .progress {\n        max-width: 100%;\n        background: #ae9279;\n        height: 100%;\n        border-radius: inherit;\n        animation-name: MOVE-BG;\n        animation-duration: 100s;\n        animation-timing-function: linear;\n        animation-iteration-count: infinite;\n        display: flex;\n        align-items: center;\n        width: {{msg.percent}}%;\n    }\n    \n    .progressbartext {\n        margin-left: 10px;\n    }\n</style>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1590,
-        "y": 640,
+        "x": 1490,
+        "y": 580,
         "wires": [
             []
         ]
@@ -1458,8 +1438,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1050,
-        "y": 640,
+        "x": 1150,
+        "y": 520,
         "wires": [
             [
                 "057b8e446aae360f"
@@ -1471,14 +1451,14 @@
         "type": "function",
         "z": "a00d9ff1d49b324a",
         "name": "Make Rainbow",
-        "func": "if(msg.payload === \"OK\") {\n    const baking = flow.get(\"baking\")\n    if(baking) {\n        msg.rainbow = \"background: linear-gradient(270deg, #ff0058, #ce63ff, #0011ff, #00dbff, #00ff7a, #94ff00, #ffe300);background-size: 1400% 1400%;-webkit-animation: AnimationName 500ms linear infinite;-moz-animation: AnimationName 500ms linear infinite;animation: AnimationName 500ms linear infinite;\"\n        return msg\n    }\n}",
+        "func": "if(msg.peak === true) {\n    const baking = flow.get(\"baking\")\n    const speed = 800//ms\n    if(baking) {\n//        msg.rainbow = \"background: linear-gradient(270deg, #ff0058, #ce63ff, #0011ff, #00dbff, #00ff7a, #94ff00, #ffe300);background-size: 1400% 1400%;-webkit-animation: AnimationName 500ms linear infinite;-moz-animation: AnimationName 500ms linear infinite;animation: AnimationName 500ms linear infinite;\"\n        msg.rainbow = `background: linear-gradient(270deg, #ae9279, #f7f1d8, #ae9279);background-size: 600% 600%;animation: AnimationName ${speed}ms ease infinite;`\n        return msg\n    }\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1460,
-        "y": 520,
+        "x": 1500,
+        "y": 460,
         "wires": [
             [
                 "057b8e446aae360f"
@@ -1486,42 +1466,183 @@
         ]
     },
     {
-        "id": "7367f2ace9a51065",
-        "type": "finite-state-machine",
-        "z": "85ecac428367bed1",
-        "name": "",
-        "fsmDefinition": "{\"state\":{\"status\":\"IDLE\"},\"transitions\":{\"IDLE\":{\"run\":\"RUNNING\"},\"RUNNING\":{\"stop\":\"IDLE\",\"set\":\"RUNNING\"}}}",
-        "sendInitialState": false,
-        "sendStateWithoutChange": false,
-        "showTransitionErrors": true,
-        "x": 440,
-        "y": 340,
+        "id": "6b04871219448d6c",
+        "type": "ui_template",
+        "z": "a00d9ff1d49b324a",
+        "group": "70e4408fb7a5530a",
+        "name": "Styles",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "format": "<style type=\"text/css\" media=\"all\">\n    :root {\n        --nr-dashboard-pageBackgroundColor: transparent;\n    }\n    \n    html {\n        background: #615449;\n    }\n    \n    body.nr-dashboard-theme {\n        position: relative;\n        background: transparent;\n    }\n    \n    body.nr-dashboard-theme:before {\n        content: ' ';\n        display: block;\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        opacity: 0.2;\n        background-image: url(\"https://www.kingarthurbaking.com/sites/default/files/styles/featured_image/public/recipe_legacy/19928-3-large_0.jpg?itok=z6hrU9GQ\");\n        background-size: contain;\n        filter: blur(24px);\n    }\n\n    button {\n        left: auto;\n        border-radius: 6px !important;\n    }\n    \n    .bigBtn {\n        left: 12px !important;\n    }\n    \n    ui-card-panel {\n        border-radius: 8px !important;\n        border-color: transparent !important;\n    }\n    \n    md-toolbar {\n        background: transparent !important;\n        background-color: transparent !important;\n        opacity: 0.85;\n    }\n    \n    md-card {\n        background: transparent !important;\n    }\n    \n    md-dialog {\n        \n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "global",
+        "className": "",
+        "x": 810,
+        "y": 80,
         "wires": [
             []
         ]
     },
     {
-        "id": "23f83d1641b6ca6a",
-        "type": "debug",
-        "z": "85ecac428367bed1",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 670,
-        "y": 340,
-        "wires": []
+        "id": "25a2e388b19a8113",
+        "type": "link in",
+        "z": "a00d9ff1d49b324a",
+        "name": "MQTT status out (in)",
+        "links": [
+            "a25c280fdb361527"
+        ],
+        "x": 345,
+        "y": 1080,
+        "wires": [
+            [
+                "4c399c103d6bdbd5"
+            ]
+        ]
     },
     {
-        "id": "4585a50d9476e0e8",
-        "type": "inject",
-        "z": "85ecac428367bed1",
+        "id": "f7ba386a4896cffa",
+        "type": "ui_template",
+        "z": "a00d9ff1d49b324a",
+        "group": "9cdb89835f4478cd",
+        "name": "MQTT status",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "format": "<div class=\"mqtt-status\">\n    <div class=\"mqtt-status-header\">\n        <span class=\"mqtt-status-header-text\">\n            MQTT connection\n        </span>\n        <div class=\"fa fa-wifi\" />\n    </div>\n    <div class=\"mqtt-status-flex\">\n        <span class=\"mqtt-status-text\">\n            {{msg.payload.text}}\n        </span>\n        <span class=\"mqtt-status-graphic\"></span>\n    </div>\n</div>\n\n<style type=\"text/css\" media=\"all\">\n    .mqtt-status {\n        overflow: visible !important;\n        padding: 0px 6px;\n        height: 40px;\n    }\n    .mqtt-status-header-text {\n        opacity: 0.75;\n    }\n    .mqtt-status-graphic {\n        overflow: visible !important;\n        width:  16px;\n        height: 16px;\n        margin-left: 5px;\n        border-radius: 50%;\n        background: {{msg.payload.color}};\n    }\n    .mqtt-status-text {\n        font-style: bold;\n        font-weight: 900;\n    }\n    .mqtt-status-flex {\n        overflow: visible !important;\n        display: flex;\n        align-items: center;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 990,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "616403e23b79261d",
+        "type": "change",
+        "z": "a00d9ff1d49b324a",
         "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "origin",
+                "pt": "msg",
+                "to": "in",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 1160,
+        "wires": [
+            [
+                "6fe11115cfc03869"
+            ]
+        ]
+    },
+    {
+        "id": "4c399c103d6bdbd5",
+        "type": "change",
+        "z": "a00d9ff1d49b324a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "origin",
+                "pt": "msg",
+                "to": "out",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 1080,
+        "wires": [
+            [
+                "6fe11115cfc03869"
+            ]
+        ]
+    },
+    {
+        "id": "6fe11115cfc03869",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "set connection status",
+        "func": "const { text } = msg.status\nconst prev = flow.get(\"connection\")\n\nswitch(msg.origin) {\n    case \"in\":\n        flow.set(\"connection\", {...prev, in: text})\n        break\n    case \"out\":\n        flow.set(\"connection\", {...prev, out: text})\n        break\n}\n\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1120,
+        "wires": [
+            [
+                "a39bb4f66bb6cb3d"
+            ]
+        ]
+    },
+    {
+        "id": "06255601f619a7f8",
+        "type": "range",
+        "z": "a00d9ff1d49b324a",
+        "minin": "20",
+        "maxin": "0",
+        "minout": "0",
+        "maxout": "20",
+        "action": "scale",
+        "round": false,
+        "property": "payload.mean",
+        "name": "",
+        "x": 830,
+        "y": 460,
+        "wires": [
+            [
+                "15413418d4091d69",
+                "13b14380afa66727",
+                "477b95154ade860d",
+                "fa758a25cef4086c"
+            ]
+        ]
+    },
+    {
+        "id": "a39bb4f66bb6cb3d",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "Check connection OK?",
+        "func": "const connection = flow.get(\"connection\")\nconst OK = \"node-red:common.status.connected\"\n\nmsg.payload = {...msg.payload }\n\nif(connection.in === OK && connection.out === OK) {\n    msg.payload.text = \"OK\"\n    msg.payload.color = \"#58f89a\"\n} else {\n    msg.payload.text = \"Lost ...\"\n    msg.payload.color = \"#ab475a\"\n}\n\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 1200,
+        "wires": [
+            [
+                "f7ba386a4896cffa"
+            ]
+        ]
+    },
+    {
+        "id": "517b10997c956b3d",
+        "type": "inject",
+        "z": "a00d9ff1d49b324a",
+        "name": "mix [MIXING]",
         "props": [
             {
                 "p": "payload"
@@ -1533,38 +1654,61 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": 0.1,
-        "topic": "run",
-        "payload": "",
-        "payloadType": "str",
-        "x": 190,
-        "y": 340,
+        "topic": "",
+        "payload": "{\"status\":\"MIXING\",\"type\":\"mix\",\"response\":\"OK\"}",
+        "payloadType": "json",
+        "x": 330,
+        "y": 500,
         "wires": [
             [
-                "7367f2ace9a51065"
+                "9371853bdb3f3e5c"
             ]
         ]
     },
     {
-        "id": "78145cf07001d45a",
-        "type": "comment",
-        "z": "85ecac428367bed1",
-        "name": "sending topic \"toggleState\" toggles between the two states",
-        "info": "",
-        "x": 360,
-        "y": 300,
-        "wires": []
+        "id": "76311f5fdc43ad49",
+        "type": "link in",
+        "z": "a00d9ff1d49b324a",
+        "name": "From UI tests",
+        "links": [
+            "19835f7290acd652"
+        ],
+        "x": 385,
+        "y": 540,
+        "wires": [
+            [
+                "9371853bdb3f3e5c"
+            ]
+        ]
+    },
+    {
+        "id": "5f4da1ac8c108168",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "MeanTemp",
+        "func": "const sum = msg.payload.celcius.reduce((acc,cur) => {\n    return acc += cur\n},0)\nconst mean = sum / msg.payload.celcius.length\nmsg.payload.mean = parseFloat(mean).toFixed(2)\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 720,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "43d1ea5c4baf62a9",
         "type": "mqtt in",
         "z": "dc4958470e403265",
         "name": "JSON in",
-        "topic": "dispenser",
+        "topic": "s203773@student.dtu.dk/node-red",
         "qos": "2",
         "datatype": "auto",
-        "broker": "9c374d34624eca9c",
+        "broker": "42de78205b9c9f26",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -1606,6 +1750,197 @@
         "wires": [
             [
                 "529b5b46e0310a42"
+            ]
+        ]
+    },
+    {
+        "id": "19835f7290acd652",
+        "type": "link out",
+        "z": "615d7da335e1bd29",
+        "name": "From UI tests",
+        "mode": "link",
+        "links": [
+            "76311f5fdc43ad49"
+        ],
+        "x": 855,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "59a3af2e4b8104ec",
+        "type": "ui_button",
+        "z": "615d7da335e1bd29",
+        "name": "",
+        "group": "c8cc3c3ee71f5641",
+        "order": 1,
+        "width": "1",
+        "height": "1",
+        "passthru": false,
+        "label": "Init",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "ea046ef4429fb34d"
+            ]
+        ]
+    },
+    {
+        "id": "0141480248e8e796",
+        "type": "ui_template",
+        "z": "615d7da335e1bd29",
+        "group": "70e4408fb7a5530a",
+        "name": "UI tests Styles",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "format": "<style type=\"text/css\" media=\"all\">\n    .ui-tests button {\n        background: #4c5055 !important;\n        color: rgba(255, 255, 255, 0.5) !important;\n        font-weight: 900 !important;\n        left: 12px;\n    }\n    \n    .ui-tests .nr-dashboard-cardcontainer {\n        padding: 6px 0 !important;\n    }\n    \n    .ui-tests .nr-dashboard-cardtitle,\n    .ui-system .nr-dashboard-cardtitle {\n        margin-bottom: 3px;\n    }\n    \n    .ui-system .nr-dashboard-cardcontainer {\n        height: auto !important;\n    }\n    \n    .ui-system md-card {\n        height: auto !important;\n        position: static !important;\n        padding-bottom: 8px !important;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "global",
+        "className": "",
+        "x": 400,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10b8c214e063989d",
+        "type": "ui_button",
+        "z": "615d7da335e1bd29",
+        "name": "",
+        "group": "c8cc3c3ee71f5641",
+        "order": 1,
+        "width": "1",
+        "height": "1",
+        "passthru": false,
+        "label": "100%",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 370,
+        "y": 340,
+        "wires": [
+            [
+                "5e1df95503349063"
+            ]
+        ]
+    },
+    {
+        "id": "48135eaf55721cb6",
+        "type": "ui_button",
+        "z": "615d7da335e1bd29",
+        "name": "",
+        "group": "c8cc3c3ee71f5641",
+        "order": 1,
+        "width": "1",
+        "height": "1",
+        "passthru": false,
+        "label": "mix",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 370,
+        "y": 380,
+        "wires": [
+            [
+                "b3601430182894cb"
+            ]
+        ]
+    },
+    {
+        "id": "ea046ef4429fb34d",
+        "type": "change",
+        "z": "615d7da335e1bd29",
+        "name": "heightSensor [STARTING]",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"status\":\"STARTING\",\"type\":\"heightSensor\",\"data\":[15,18,12,18,12]}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 300,
+        "wires": [
+            [
+                "19835f7290acd652"
+            ]
+        ]
+    },
+    {
+        "id": "5e1df95503349063",
+        "type": "change",
+        "z": "615d7da335e1bd29",
+        "name": "heightSensor [2x height]",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"status\":\"INCUBATING\",\"type\":\"heightSensor\",\"data\":[10,10,10,10,10]}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 340,
+        "wires": [
+            [
+                "19835f7290acd652"
+            ]
+        ]
+    },
+    {
+        "id": "b3601430182894cb",
+        "type": "function",
+        "z": "615d7da335e1bd29",
+        "name": "water, flour, mix => OK",
+        "func": "const water = {\n    \"status\": \"MIXING\",\n    \"type\": \"water\",\n    \"response\": \"OK\"\n}\nconst flour = {\n    \"status\": \"MIXING\",\n    \"type\": \"flour\",\n    \"response\": \"OK\"\n}\nconst mix = {\n    \"status\": \"MIXING\",\n    \"type\": \"mix\",\n    \"response\": \"OK\"\n}\nreturn [[{payload: water}, {payload: flour}, {payload: mix}]]",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 380,
+        "wires": [
+            [
+                "19835f7290acd652"
             ]
         ]
     }

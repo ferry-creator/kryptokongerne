@@ -1,0 +1,6 @@
+{
+  "status": "INCUBATING",
+  "type": "tempSensor",
+  "freq": 1000,
+  "reps": 5
+}

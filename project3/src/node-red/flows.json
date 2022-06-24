@@ -235,7 +235,7 @@
         "type": "ui_group",
         "name": "System",
         "tab": "9d49a9027f140f70",
-        "order": 2,
+        "order": 3,
         "disp": true,
         "width": "6",
         "collapse": false,
@@ -256,11 +256,22 @@
         "type": "ui_group",
         "name": "Testing",
         "tab": "9d49a9027f140f70",
-        "order": 3,
+        "order": 4,
         "disp": true,
         "width": "6",
         "collapse": false,
         "className": "ui-tests"
+    },
+    {
+        "id": "31f04650df582e92",
+        "type": "ui_group",
+        "name": "Climate",
+        "tab": "9d49a9027f140f70",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": "ui-climate"
     },
     {
         "id": "8e6c4df65096e965",
@@ -629,7 +640,8 @@
         "z": "fb94b5ca5ce751d5",
         "name": "to MQTT",
         "links": [
-            "df0a1944aef5cbbc"
+            "df0a1944aef5cbbc",
+            "288746aca4e591a7"
         ],
         "x": 885,
         "y": 220,
@@ -812,13 +824,13 @@
         "type": "function",
         "z": "a00d9ff1d49b324a",
         "name": "MeanHeight",
-        "func": "const sum = msg.payload.data.reduce((acc,cur) => {\n    return acc += cur\n},0)\nconst mean = sum / msg.payload.data.length\nmsg.payload.mean = parseFloat(mean).toFixed(2)\nreturn msg",
+        "func": "const sum = msg.payload.data.reduce((acc,cur) => {\n    return acc += cur\n},0)\nconst mean = sum / msg.payload.data.length\n//msg.payload.mean = parseInt(mean)\nmsg.payload.mean = parseFloat(mean).toFixed(2)\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 670,
+        "x": 650,
         "y": 460,
         "wires": [
             [
@@ -939,7 +951,7 @@
         "links": [
             "c642f5bd0ebd4cd5"
         ],
-        "x": 665,
+        "x": 615,
         "y": 580,
         "wires": [
             [
@@ -951,7 +963,7 @@
         "id": "3381fcd1b836671f",
         "type": "function",
         "z": "a00d9ff1d49b324a",
-        "name": "Reset height text",
+        "name": "Reset text",
         "func": "if(msg.payload === \"IDLE\") {\n    msg.payload = null\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
@@ -964,7 +976,9 @@
             [
                 "477b95154ade860d",
                 "6dac218bbfa3b032",
-                "fa758a25cef4086c"
+                "fa758a25cef4086c",
+                "80d350c0cf7c6689",
+                "01fe6e868276fb46"
             ]
         ]
     },
@@ -1112,7 +1126,8 @@
         "y": 300,
         "wires": [
             [
-                "0615678f75f17b16"
+                "0615678f75f17b16",
+                "ab89ce860ac9c35c"
             ],
             [
                 "0615678f75f17b16"
@@ -1123,7 +1138,10 @@
             [
                 "93f59d9c904345cd"
             ],
-            []
+            [
+                "5f4da1ac8c108168",
+                "a9f90a1fb816ceb4"
+            ]
         ]
     },
     {
@@ -1280,7 +1298,7 @@
         "finalize": "",
         "libs": [],
         "x": 810,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "41dce046f5b2115c",
@@ -1298,7 +1316,7 @@
             "b13503fa4d29470b"
         ],
         "x": 1315,
-        "y": 220,
+        "y": 240,
         "wires": []
     },
     {
@@ -1313,7 +1331,7 @@
         "finalize": "",
         "libs": [],
         "x": 1040,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
                 "8b03a0f9cf5b887b"
@@ -1332,7 +1350,7 @@
         "finalize": "",
         "libs": [],
         "x": 1210,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
                 "df0a1944aef5cbbc"
@@ -1349,7 +1367,7 @@
             "0df9330c4d91f7ad"
         ],
         "x": 1435,
-        "y": 280,
+        "y": 300,
         "wires": []
     },
     {
@@ -1364,7 +1382,7 @@
         "finalize": "",
         "libs": [],
         "x": 1300,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "3f2d2519b1c7aeb2"
@@ -1383,7 +1401,7 @@
         "finalize": "",
         "libs": [],
         "x": 1070,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "cf8033cb5d04653d"
@@ -1609,13 +1627,10 @@
         "property": "payload.mean",
         "name": "",
         "x": 830,
-        "y": 460,
+        "y": 400,
         "wires": [
             [
-                "15413418d4091d69",
-                "13b14380afa66727",
-                "477b95154ade860d",
-                "fa758a25cef4086c"
+                "f9055fdb2fdfbb61"
             ]
         ]
     },
@@ -1688,16 +1703,218 @@
         "type": "function",
         "z": "a00d9ff1d49b324a",
         "name": "MeanTemp",
-        "func": "const sum = msg.payload.celcius.reduce((acc,cur) => {\n    return acc += cur\n},0)\nconst mean = sum / msg.payload.celcius.length\nmsg.payload.mean = parseFloat(mean).toFixed(2)\nreturn msg",
+        "func": "const sum = msg.payload.celcius.reduce((acc,cur) => {\n    return acc += cur\n},0)\nconst mean = sum / msg.payload.celcius.length\nmsg.mean = parseFloat(mean).toFixed(2)\nreturn msg",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 670,
+        "x": 830,
+        "y": 680,
+        "wires": [
+            [
+                "80d350c0cf7c6689"
+            ]
+        ]
+    },
+    {
+        "id": "80d350c0cf7c6689",
+        "type": "ui_text",
+        "z": "a00d9ff1d49b324a",
+        "group": "31f04650df582e92",
+        "order": 6,
+        "width": "0",
+        "height": "0",
+        "name": "",
+        "label": "Temperature (C):",
+        "format": "{{msg.mean}}",
+        "layout": "row-left",
+        "className": "info-text",
+        "x": 1060,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "a9f90a1fb816ceb4",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "MeanHumidity",
+        "func": "const sum = msg.payload.humidity.reduce((acc,cur) => {\n    return acc += cur\n},0)\nconst mean = sum / msg.payload.humidity.length\nmsg.mean = parseFloat(mean).toFixed(2)\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
         "y": 720,
         "wires": [
+            [
+                "01fe6e868276fb46"
+            ]
+        ]
+    },
+    {
+        "id": "01fe6e868276fb46",
+        "type": "ui_text",
+        "z": "a00d9ff1d49b324a",
+        "group": "31f04650df582e92",
+        "order": 6,
+        "width": "0",
+        "height": "0",
+        "name": "",
+        "label": "Humidity:",
+        "format": "{{msg.mean}}",
+        "layout": "row-left",
+        "className": "info-text",
+        "x": 1040,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "1fe82f3a323593c7",
+        "type": "ui_button",
+        "z": "a00d9ff1d49b324a",
+        "name": "",
+        "group": "31f04650df582e92",
+        "order": 1,
+        "width": "1",
+        "height": "1",
+        "passthru": false,
+        "label": "Get",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "speculBtn",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 810,
+        "y": 840,
+        "wires": [
+            [
+                "1cfb75739e7bee35"
+            ]
+        ]
+    },
+    {
+        "id": "401b28e5a7f2516e",
+        "type": "ui_template",
+        "z": "a00d9ff1d49b324a",
+        "group": "70e4408fb7a5530a",
+        "name": "UI climate Styles",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "format": "<style type=\"text/css\" media=\"all\">\n    .ui-climate button {\n        background: #4c5055 !important;\n        color: rgba(255, 255, 255, 0.5) !important;\n        font-weight: 900 !important;\n        left: 12px;\n        \n        position: absolute !important;\n        width: 48px !important;\n        height: 48px !important;\n        left: calc(100% - 60px) !important;\n    }\n    \n    .ui-climate .nr-dashboard-cardcontainer {\n        padding: 6px 0 !important;\n    }\n    \n    .ui-climate .nr-dashboard-cardtitle {\n        margin-bottom: 3px;\n    }\n    \n    .ui-climate .nr-dashboard-cardcontainer {\n        height: auto !important;\n    }\n    \n    .ui-climate md-card {\n        height: auto !important;\n        position: static !important;\n        padding-bottom: 8px !important;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "global",
+        "className": "",
+        "x": 850,
+        "y": 880,
+        "wires": [
             []
+        ]
+    },
+    {
+        "id": "288746aca4e591a7",
+        "type": "link out",
+        "z": "a00d9ff1d49b324a",
+        "name": "to MQTT",
+        "mode": "link",
+        "links": [
+            "b13503fa4d29470b"
+        ],
+        "x": 1175,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "1cfb75739e7bee35",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "temp JSON",
+        "func": "const state = global.get(\"state\")\nmsg.payload = {\n    \"status\": state,\n    \"type\": \"tempSensor\",\n    \"freq\": 2500,\n    \"reps\": 1\n}\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 840,
+        "wires": [
+            [
+                "288746aca4e591a7"
+            ]
+        ]
+    },
+    {
+        "id": "ab89ce860ac9c35c",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "fake mix ! (hack)",
+        "func": "msg.payload = {\n    \"status\": \"MIXING\",\n    \"type\": \"mix\",\n    \"response\": \"OK\"\n}\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 220,
+        "wires": [
+            [
+                "c80ea2edadbd5b2a"
+            ]
+        ]
+    },
+    {
+        "id": "c80ea2edadbd5b2a",
+        "type": "delay",
+        "z": "a00d9ff1d49b324a",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "23",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 800,
+        "y": 180,
+        "wires": [
+            [
+                "2261ae9763229f01"
+            ]
+        ]
+    },
+    {
+        "id": "f9055fdb2fdfbb61",
+        "type": "function",
+        "z": "a00d9ff1d49b324a",
+        "name": "2decimal",
+        "func": "msg.payload.mean = parseFloat(msg.payload.mean).toFixed(2)\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 460,
+        "wires": [
+            [
+                "477b95154ade860d",
+                "15413418d4091d69",
+                "13b14380afa66727",
+                "fa758a25cef4086c"
+            ]
         ]
     },
     {
@@ -1730,7 +1947,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 510,

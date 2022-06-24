@@ -83,23 +83,6 @@ void callback(char* topic, byte* Payload, unsigned int length) {
     Serial.print((char)Payload[i]);
   }
   Serial.println();
-
-/*  
-  // Konverterer den indkomne besked (payload) fra en array til en string:
-  // Topic == Temperaturmaaler, Topic == Kraftsensor
-  if (topic == "mathiashovmark@gmail.com/Mekatronik21") { // OBS: der subscribes til et topic nede i reconnect-funktionen. I det her tilfælde er der subscribed til "Test". Man kan subscribe til alle topics ved at bruge "#"
-    payload = ""; // Nulstil payload variablen så forloopet ikke appender til en allerede eksisterende payload
-    for (int i = 0; i < length; i++) {
-      payload += (char)byteArrayPayload[i];
-      // For-loop: tag hvert tegn i hele længden af den inkomne besked, og konverter denne til en char. Append tegnene 1 efter 1:
-      // Eksempel:
-      // Besked = Study Abroad
-      // Length = 12
-      // Loop 1 = "S"
-      // Loop 2 = "St" osv.
-      // Loop (length) = "Study Abroad"
-*/
-
       if (doc["type"] == "heightSensor") {
         // Definerer funktion
         delay(1000);   
@@ -120,7 +103,7 @@ void callback(char* topic, byte* Payload, unsigned int length) {
         int b=serializeJson(doc2, buffer);
         client.publish("node-red", buffer);
         Serial.print(b);            
-        }
+      }
       
       if ((doc["type"]) == "flour") {
         // Definerer funktion ved indput Flour
